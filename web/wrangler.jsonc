@@ -1,0 +1,11 @@
+{
+  // Deploys the built website (the "dist" folder) as static files on Cloudflare.
+  // Build first with: npm run build:demo (showcase on dummy data) -- the dashboard's build command does this.
+  "name": "makakami",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // Any address that is not a real file (e.g. /p/9559990000015 or /kategori/food) serves index.html, so deep links and refresh work.
+    "not_found_handling": "single-page-application"
+  }
+}
