@@ -40,7 +40,8 @@ class EmailVerificationController extends Controller
             return response()->json(['message' => 'Your email is already confirmed.']);
         }
 
-        $user->sendEmailVerificationNotification();
+        // Sent after the answer, like at sign-up.
+        defer(fn () => $user->sendEmailVerificationNotification());
 
         return response()->json(['message' => 'Confirmation email sent.']);
     }

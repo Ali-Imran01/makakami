@@ -22,7 +22,9 @@ class PasswordResetController extends Controller
 
         // Laravel creates the one-time token, stores a hash of it, and emails the link (see AppServiceProvider for the link's address).
         // The result (sent / unknown email / asked too soon) is deliberately ignored.
-        Password::sendResetLink(['email' => strtolower(trim($data['email']))]);
+        // It runs after the answer is sent, so the time taken can't reveal whether the address has an account.
+        $email = strtolower(trim($data['email']));
+        defer(fn () => Password::sendResetLink(['email' => $email]));
 
         return response()->json(['message' => 'If that email has an account, we have sent a link to reset the password.']);
     }

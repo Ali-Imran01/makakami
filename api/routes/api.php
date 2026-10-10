@@ -6,9 +6,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\Staff\AuditController;
 use App\Http\Controllers\Staff\ProductController as StaffProductController;
+use App\Http\Controllers\Staff\ReportReviewController;
 use App\Http\Controllers\Staff\SubmissionReviewController;
 use App\Http\Controllers\Staff\UserController as StaffUserController;
 use App\Http\Controllers\SubmissionController;
@@ -31,12 +33,18 @@ Route::middleware('auth:sanctum')->group(function () {
     // Contributions. Sending one needs a confirmed email address; limited to 30 attempts per hour per person (typos in the form count too).
     Route::post('/submissions', [SubmissionController::class, 'store'])->middleware(['verified', 'throttle:30,60,submit']);
     Route::get('/submissions/mine', [SubmissionController::class, 'mine']);
+    // "Report a mistake" on a product: needs a confirmed email; 20 attempts per hour per person.
+    Route::post('/reports', [ReportController::class, 'store'])->middleware(['verified', 'throttle:20,60,report']);
     // ---- Staff area (needs a confirmed email, and at least the moderator role) ----
     Route::prefix('staff')->middleware(['verified', 'role:moderator'])->group(function () {
         // The review queue and its decisions.
         Route::get('/submissions', [SubmissionReviewController::class, 'index']);
         Route::post('/submissions/{submission}/approve', [SubmissionReviewController::class, 'approve']);
         Route::post('/submissions/{submission}/reject', [SubmissionReviewController::class, 'reject']);
+        // Reports of wrong information.
+        Route::get('/reports', [ReportReviewController::class, 'index']);
+        Route::post('/reports/{report}/resolve', [ReportReviewController::class, 'resolve']);
+        Route::post('/reports/{report}/dismiss', [ReportReviewController::class, 'dismiss']);
         // Adding and correcting products directly.
         Route::get('/products/{barcode}', [StaffProductController::class, 'show'])->where('barcode', '[0-9]{8,14}');
         Route::post('/products', [StaffProductController::class, 'store']);

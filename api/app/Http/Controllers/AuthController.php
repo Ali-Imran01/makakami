@@ -45,8 +45,8 @@ class AuthController extends Controller
             'terms_version' => $data['terms_version'],
         ])->save();
 
-        // Sends the "confirm your email" message.
-        event(new Registered($user));
+        // Sends the "confirm your email" message after the answer has been sent, so a slow email provider never slows sign-up down.
+        defer(fn () => event(new Registered($user)));
 
         // Log them in straight away so the website can show their profile.
         return response()->json(['token' => $this->issueToken($user), 'user' => $user->toPublicArray()], 201);
