@@ -10,11 +10,13 @@ import CategoryList from './pages/CategoryList'
 import Categories from './pages/Categories'
 import Home from './pages/Home'
 import Contribute from './pages/Contribute'
+import ForgotPassword from './pages/ForgotPassword'
 import Legal from './pages/Legal'
 import Login from './pages/Login'
 import MySubmissions from './pages/MySubmissions'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
+import ResetPassword from './pages/ResetPassword'
 import Result from './pages/Result'
 import Search from './pages/Search'
 import Staff from './pages/Staff'
@@ -42,6 +44,8 @@ export default function App() {
             <Route path="/log-masuk" element={<Login />} />
             <Route path="/daftar" element={<Register />} />
             <Route path="/profil" element={<Profile />} />
+            <Route path="/lupa-kata-laluan" element={<ForgotPassword />} />
+            <Route path="/tetapkan-semula" element={<ResetPassword />} />
             {/* Contributions: send in a product or correction (login needed), and see what happened to your submissions. */}
             <Route path="/sumbang" element={<Contribute />} />
             <Route path="/sumbangan-saya" element={<MySubmissions />} />

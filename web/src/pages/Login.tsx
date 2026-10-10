@@ -60,6 +60,13 @@ export default function Login() {
         </p>
       )}
 
+      {/* Shown after a successful password reset. */}
+      {params.get('reset') === '1' && (
+        <p role="status" className="rounded-md border border-line bg-verified-soft p-3 text-label font-normal text-verified-ink">
+          {t('auth.resetDone')}
+        </p>
+      )}
+
       {/* The form; noValidate so we show our own messages. */}
       <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
         <TextField id="email" label={t('auth.email')} type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -75,6 +82,11 @@ export default function Login() {
           {t('auth.loginButton')}
         </button>
       </form>
+
+      {/* Locked out? */}
+      <Link to="/lupa-kata-laluan" className="text-label font-bold text-navy">
+        {t('auth.forgotLink')}
+      </Link>
 
       {/* Link to sign-up. */}
       <p className="text-label font-normal text-muted">

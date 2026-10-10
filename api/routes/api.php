@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\Staff\AuditController;
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 // its own counter: without it, every "throttle:N,M" route would share one counter and block each other.
 Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:10,60,register');
 Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:6,1,login');
+// Forgot password: ask for a link (5 per hour per client), then set the new password with it.
+Route::post('/auth/forgot-password', [PasswordResetController::class, 'forgot'])->middleware('throttle:5,60,forgot');
+Route::post('/auth/reset-password', [PasswordResetController::class, 'reset'])->middleware('throttle:6,1,reset');
 // The rest need a valid login token.
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);

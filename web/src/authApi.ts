@@ -68,6 +68,12 @@ export const login = (email: string, password: string) => request<AuthResult>('P
 // Who is behind this token? (Rejects with ApiError 401 when the token is no longer valid.)
 export const fetchMe = (token: string) => request<AuthUser>('GET', '/auth/me', { token })
 
+// Ask for a "reset your password" email. The answer is always the same, whether or not the email has an account.
+export const forgotPassword = (email: string) => request<{ message: string }>('POST', '/auth/forgot-password', { body: { email } })
+
+// Set a new password using the token from the emailed link (rejects with ApiError 422 when the link is invalid or expired).
+export const resetPassword = (input: { email: string; token: string; password: string }) => request<{ message: string }>('POST', '/auth/reset-password', { body: input })
+
 // Ask the server to send the confirmation email again.
 export const resendVerification = (token: string) => request<{ message: string }>('POST', '/email/resend', { token })
 

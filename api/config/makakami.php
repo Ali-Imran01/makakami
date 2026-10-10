@@ -7,7 +7,7 @@ return [
 
     // The version of the Terms and Privacy Policy people must accept when they sign up.
     // Must equal LEGAL_VERSION in web/src/legal/content.ts; change both together whenever the legal text changes.
-    'terms_version' => env('TERMS_VERSION', '2026-10-10-draft-3'),
+    'terms_version' => env('TERMS_VERSION', '2026-10-10-draft-4'),
 
     // Malaysian states and federal territories (the only values accepted for a manufacturer's state).
     'states' => [

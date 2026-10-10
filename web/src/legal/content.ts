@@ -3,7 +3,7 @@
 // Placeholders in [square brackets] must be filled in (operator name, contact email) before launch.
 
 // Version label shown on the pages. Change it on every edit and keep old versions (needed to record what a user accepted).
-export const LEGAL_VERSION = '2026-10-10-draft-3'
+export const LEGAL_VERSION = '2026-10-10-draft-4'
 
 // One block of a document: a heading and its paragraphs.
 export interface Section {
@@ -227,7 +227,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
         {
           h: '4. Akaun',
           p: [
-            'Akaun adalah pilihan. Jika anda mendaftar, kami menyimpan nama, alamat emel, kata laluan anda (disimpan dalam bentuk cincang yang tidak boleh dibaca semula, jadi kami tidak dapat melihatnya), peranan akaun, serta masa dan versi Terma dan Dasar Privasi yang anda setuju. Kami menghantar emel untuk mengesahkan alamat anda.',
+            'Akaun adalah pilihan. Jika anda mendaftar, kami menyimpan nama, alamat emel, kata laluan anda (disimpan dalam bentuk cincang yang tidak boleh dibaca semula, jadi kami tidak dapat melihatnya), peranan akaun, serta masa dan versi Terma dan Dasar Privasi yang anda setuju. Kami menghantar emel untuk mengesahkan alamat anda, dan untuk menetapkan semula kata laluan jika anda memintanya.',
             'Tindakan kakitangan yang mengubah data (contohnya menukar peranan seseorang atau status sesuatu produk) direkodkan dalam log audit bersama akaun yang melakukannya, sebab dan masanya.',
             'Jika anda menghantar sumbangan, kami menyimpan apa yang anda isi (kod bar, nama, jenama, kategori, pengilang, negeri, status halal, saiz pek, pautan imej dan nota sumber) bersama akaun anda, serta keputusan semakan moderator. Sumbangan disemak sebelum dipaparkan, dan nama atau emel anda tidak dipaparkan secara awam. Muat naik foto dan log masuk dengan Google belum tersedia.',
           ],
@@ -238,7 +238,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'Open Food Facts: untuk produk yang tiada dalam pangkalan data kami, pelayan kami menghantar kod bar itu sahaja kepada Open Food Facts. Alamat IP anda tidak dihantar.',
             'Google Fonts: pelayar anda memuat turun fon daripada Google, yang boleh melihat alamat IP anda. Kami bercadang menghos fon sendiri.',
             'Hos: laman web dan API dihos oleh penyedia pihak ketiga (dirancang: Cloudflare dan Hostinger) yang memproses data teknikal bagi pihak kami.',
-            'Penghantaran emel: emel pengesahan dihantar melalui penyedia perkhidmatan emel [penyedia emel – akan diisi], yang menerima alamat emel anda untuk tujuan itu.',
+            'Penghantaran emel: emel pengesahan dan penetapan semula kata laluan dihantar melalui penyedia perkhidmatan emel [penyedia emel – akan diisi], yang menerima alamat emel anda untuk tujuan itu.',
           ],
         },
         {
@@ -300,7 +300,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
         {
           h: '4. Accounts',
           p: [
-            'An account is optional. If you sign up, we store your name, email address, your password (kept as a one-way scrambled hash, so we cannot see it), your account role, and the time and version of the Terms and Privacy Policy you agreed to. We send an email to confirm your address.',
+            'An account is optional. If you sign up, we store your name, email address, your password (kept as a one-way scrambled hash, so we cannot see it), your account role, and the time and version of the Terms and Privacy Policy you agreed to. We send an email to confirm your address, and to reset your password if you ask for it.',
             'Staff actions that change data (for example changing someone\'s role or a product\'s status) are recorded in an audit log together with the account that did it, the reason and the time.',
             'If you send in a contribution, we store what you filled in (barcode, name, brand, category, manufacturer, state, halal status, pack size, image link and source note) together with your account, and the moderator\'s review decision. Contributions are reviewed before anything is shown, and your name or email is not shown publicly. Photo upload and logging in with Google are not available yet.',
           ],
@@ -311,7 +311,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'Open Food Facts: for products that are not in our database, our server sends only the barcode to Open Food Facts. Your IP address is not sent.',
             'Google Fonts: your browser downloads fonts from Google, which can see your IP address. We plan to host the fonts ourselves.',
             'Hosting: the website and API are hosted by third-party providers (planned: Cloudflare and Hostinger) that process technical data on our behalf.',
-            'Email delivery: confirmation emails are sent through an email service provider [email provider – to be added], which receives your email address for that purpose.',
+            'Email delivery: confirmation and password-reset emails are sent through an email service provider [email provider – to be added], which receives your email address for that purpose.',
           ],
         },
         {
