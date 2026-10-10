@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 // Router helpers.
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../authContext'
-import { resendVerification } from '../authApi'
+import { resendVerification, ROLE_RANK } from '../authApi'
 import LangToggle from '../components/LangToggle'
 
 // Profile page, route /profil: who you are, email confirmation status, and log out.
@@ -101,6 +101,12 @@ export default function Profile() {
         <Link to="/sumbang" className="flex h-12 items-center justify-center rounded-pill bg-navy text-[15px] font-bold text-white">
           {t('contribute.title')}
         </Link>
+        {/* Staff only. */}
+        {ROLE_RANK[user.role] >= ROLE_RANK.moderator && (
+          <Link to="/staf" className="flex h-12 items-center justify-center rounded-pill border border-navy bg-surface text-[15px] font-bold text-navy">
+            {t('staff.title')}
+          </Link>
+        )}
         <Link to="/sumbangan-saya" className="flex h-12 items-center justify-center rounded-pill border border-line bg-surface text-[15px] font-bold text-ink">
           {t('contribute.mine')}
         </Link>

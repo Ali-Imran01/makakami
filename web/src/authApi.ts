@@ -18,6 +18,9 @@ export interface AuthUser {
   email_verified: boolean
 }
 
+// How high each role sits on the ladder (a bigger number can do more). Mirrors the server's Role enum.
+export const ROLE_RANK: Record<AuthUser['role'], number> = { user: 1, moderator: 2, admin: 3, super_admin: 4 }
+
 // The answer to a successful sign-up or login.
 export interface AuthResult {
   // The token to send with later requests.
@@ -26,8 +29,8 @@ export interface AuthResult {
   user: AuthUser
 }
 
-// Send one request to the API (JSON in, JSON out). Throws ApiError with the server's details when the answer is not OK.
-async function request<T>(method: 'GET' | 'POST', path: string, options: { body?: unknown; token?: string | null } = {}): Promise<T> {
+// Send one request to the API (JSON in, JSON out). Exported so the staff calls can reuse it. Throws ApiError with the server's details when the answer is not OK.
+export async function request<T>(method: 'GET' | 'POST' | 'PUT', path: string, options: { body?: unknown; token?: string | null } = {}): Promise<T> {
   // Headers: JSON in and out, plus the login token when we have one.
   const headers: Record<string, string> = { Accept: 'application/json' }
   if (options.body !== undefined) headers['Content-Type'] = 'application/json'

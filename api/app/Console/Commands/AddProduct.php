@@ -4,16 +4,13 @@
 namespace App\Console\Commands;
 
 // Models used below.
-use App\Models\Brand;
+use App\Enums\Role;
 use App\Models\Category;
-use App\Models\Manufacturer;
 use App\Models\Product;
+use App\Services\ProductEditor;
+use Illuminate\Validation\ValidationException;
 // Base class for artisan commands.
 use Illuminate\Console\Command;
-// Simple log, so there is a trail of who-ran-what until the admin panel's audit log exists.
-use Illuminate\Support\Facades\Log;
-// Turns a brand name into a URL-friendly slug.
-use Illuminate\Support\Str;
 use App\Support\Gtin;
 
 // Adds (or corrects) one product by hand, e.g. a Malaysian product that Open Food Facts doesn't have.
@@ -162,37 +159,24 @@ class AddProduct extends Command
         }
 
         // ---- save ----
-        // Brand and manufacturer are shared records: reuse them when they already exist.
-        $brand = $brandName ? Brand::firstOrCreate(['slug' => Str::slug($brandName) ?: Str::random(8)], ['name' => trim($brandName)]) : null;
-        $maker = $makerName ? Manufacturer::firstOrCreate(['name' => trim($makerName)], ['state' => $state ?: null, 'country' => strtoupper((string) $this->option('country'))]) : null;
-        // A known state fills in a manufacturer that was created earlier without one.
-        if ($maker && $state && $maker->state === null) {
-            $maker->update(['state' => $state]);
+        // Same rules as the staff page (who may set which status, evidence, audit log); the command line counts as a super_admin.
+        try {
+            $product = app(ProductEditor::class)->save($product, $barcode, [
+                'name' => $name,
+                'brand' => $brandName,
+                'category' => $category?->slug,
+                'manufacturer' => $makerName,
+                'state' => $state,
+                'country' => $this->option('country'),
+                'halal' => $halal === null ? 'unknown' : ($halal ? 'yes' : 'no'),
+                'quantity' => $this->option('quantity') ?? $current->quantity,
+                'image_url' => $image,
+                'origin_status' => $status,
+                'origin_note' => $evidence,
+            ], Role::SuperAdmin, null, 'manual');
+        } catch (ValidationException $e) {
+            return $this->refuse(collect($e->errors())->flatten()->first());
         }
-
-        // Values to write; a manual product is marked source "manual" so it is easy to find and is never auto-overwritten.
-        $values = [
-            'name' => mb_substr($name, 0, 255),
-            'brand_id' => $brand?->id,
-            'category_id' => $category?->id,
-            'manufacturer_id' => $maker?->id,
-            'origin_status' => $status,
-            'origin_note' => $evidence ? mb_substr(trim($evidence), 0, 500) : null,
-            'halal' => $halal,
-            'quantity' => ($q = $this->option('quantity') ?? $current->quantity) ? mb_substr(trim($q), 0, 64) : null,
-            'image_url' => $image ?: null,
-        ];
-
-        if ($product) {
-            // Keep the original source when correcting an imported product; just record the change.
-            $product->update($values);
-        } else {
-            $product = Product::create($values + ['barcode' => $barcode, 'source' => 'manual']);
-        }
-
-        // Leave a trail until the admin panel's audit log exists.
-        Log::info('product:add', ['barcode' => $barcode, 'status' => $status, 'evidence' => $evidence, 'updated' => (bool) $this->option('update'), 'user' => get_current_user()]);
-
         $this->info(($this->option('update') ? 'Updated' : 'Added')." \"{$product->name}\". Open it at /p/{$barcode}");
 
         return self::SUCCESS;

@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Submission;
 use App\Support\Gtin;
+use App\Support\ProductRules;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 // What contributors send in. Nothing here changes a product: every submission waits for a moderator, and a
@@ -22,21 +22,11 @@ class SubmissionController extends Controller
     {
         $data = $request->validate([
             'barcode' => ['required', 'string', 'regex:/^\d{8,14}$/'],
-            'name' => ['nullable', 'string', 'max:255'],
-            'brand' => ['nullable', 'string', 'max:100'],
-            // Must be one of our category slugs.
-            'category' => ['nullable', 'string', 'exists:categories,slug'],
-            'manufacturer' => ['nullable', 'string', 'max:150'],
-            // Must be a Malaysian state or federal territory.
-            'state' => ['nullable', Rule::in(config('makakami.states'))],
-            'halal' => ['nullable', Rule::in(['yes', 'no', 'unknown'])],
-            'quantity' => ['nullable', 'string', 'max:64'],
-            // Only web links (blocks "javascript:" and similar).
-            'image_url' => ['nullable', 'url:http,https', 'max:1000'],
+            // The product detail rules shared with the staff page.
+            ...ProductRules::details(),
             // Where the information comes from; helps the moderator check it.
             'note' => ['required', 'string', 'min:10', 'max:500'],
         ]);
-
         $user = $request->user();
         $barcode = Gtin::normalise($data['barcode']);
 

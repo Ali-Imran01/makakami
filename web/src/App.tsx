@@ -17,6 +17,7 @@ import Profile from './pages/Profile'
 import Register from './pages/Register'
 import Result from './pages/Result'
 import Search from './pages/Search'
+import Staff from './pages/Staff'
 
 // The scan page pulls in the big ZXing library, so it is loaded on demand instead of with the Home page.
 const Scan = lazy(() => import('./pages/Scan'))
@@ -44,6 +45,8 @@ export default function App() {
             {/* Contributions: send in a product or correction (login needed), and see what happened to your submissions. */}
             <Route path="/sumbang" element={<Contribute />} />
             <Route path="/sumbangan-saya" element={<MySubmissions />} />
+            {/* Staff area (moderators and above); not linked from the public pages. */}
+            <Route path="/staf" element={<Staff />} />
             {/* Legal pages (draft text, pending lawyer review). */}
             <Route path="/terma" element={<Legal doc="terms" />} />
             <Route path="/privasi" element={<Legal doc="privacy" />} />

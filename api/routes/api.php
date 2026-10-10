@@ -6,6 +6,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScanController;
+use App\Http\Controllers\Staff\AuditController;
+use App\Http\Controllers\Staff\ProductController as StaffProductController;
+use App\Http\Controllers\Staff\SubmissionReviewController;
+use App\Http\Controllers\Staff\UserController as StaffUserController;
 use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +27,22 @@ Route::middleware('auth:sanctum')->group(function () {
     // Contributions. Sending one needs a confirmed email address; limited to 30 attempts per hour per person (typos in the form count too).
     Route::post('/submissions', [SubmissionController::class, 'store'])->middleware(['verified', 'throttle:30,60,submit']);
     Route::get('/submissions/mine', [SubmissionController::class, 'mine']);
+    // ---- Staff area (needs a confirmed email, and at least the moderator role) ----
+    Route::prefix('staff')->middleware(['verified', 'role:moderator'])->group(function () {
+        // The review queue and its decisions.
+        Route::get('/submissions', [SubmissionReviewController::class, 'index']);
+        Route::post('/submissions/{submission}/approve', [SubmissionReviewController::class, 'approve']);
+        Route::post('/submissions/{submission}/reject', [SubmissionReviewController::class, 'reject']);
+        // Adding and correcting products directly.
+        Route::get('/products/{barcode}', [StaffProductController::class, 'show'])->where('barcode', '[0-9]{8,14}');
+        Route::post('/products', [StaffProductController::class, 'store']);
+        Route::put('/products/{barcode}', [StaffProductController::class, 'update'])->where('barcode', '[0-9]{8,14}');
+        // Admins only: look people up, and read the audit log.
+        Route::middleware('role:admin')->group(function () {
+            Route::get('/users', [StaffUserController::class, 'index']);
+            Route::get('/audit', [AuditController::class, 'index']);
+        });
+    });
     // Admin tools: reachable by admins and super_admins only; the controller applies the ladder rules on top.
     Route::put('/admin/users/role', [UserRoleController::class, 'update'])->middleware('role:admin');
 });
