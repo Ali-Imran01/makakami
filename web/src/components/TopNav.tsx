@@ -57,11 +57,14 @@ export default function TopNav() {
             {user ? t('auth.profileTitle') : t('nav.login')}
           </Link>
           {/* APK download: yellow button, navy text (only navy/ink text allowed on yellow). The app is not built yet, so it is shown but disabled instead of linking nowhere. */}
-          <button type="button" disabled title={t('comingSoon')} className="flex h-10 items-center gap-1.5 rounded-pill bg-yellow px-4 text-[14px] font-extrabold text-navy opacity-60">
-            {/* Decorative download arrow. */}
-            <Download size={16} strokeWidth={2.25} aria-hidden="true" />
-            {t('nav.downloadApk')}
-          </button>
+          {/* Hidden in the showcase build: visitors from the portfolio would only meet a dead button. */}
+          {import.meta.env.VITE_DEMO !== 'true' && (
+            <button type="button" disabled title={t('comingSoon')} className="flex h-10 items-center gap-1.5 rounded-pill bg-yellow px-4 text-[14px] font-extrabold text-navy opacity-60">
+              {/* Decorative download arrow. */}
+              <Download size={16} strokeWidth={2.25} aria-hidden="true" />
+              {t('nav.downloadApk')}
+            </button>
+          )}
         </div>
       </div>
     </header>
