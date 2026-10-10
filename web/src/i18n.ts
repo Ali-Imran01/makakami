@@ -85,6 +85,10 @@ const resources = {
           h: 'Bagaimana status ditentukan?',
           p: '“Buatan Malaysia” hanya diberikan oleh admin selepas melihat bukti seperti foto label atau alamat pengilang. “Mungkin Malaysia” berdasarkan data terbuka. Penyumbang boleh menghantar maklumat, tetapi semuanya disemak moderator dahulu dan penyumbang tidak boleh menetapkan status.',
         },
+        ownership: {
+          h: 'Jenama dan pemilikan',
+          p: '“Jenama Malaysia, asal belum disahkan” bermaksud jenama itu dipercayai milik rakyat Malaysia berdasarkan senarai yang belum kami sahkan sepenuhnya. Ia tidak bermaksud produk itu dibuat di Malaysia. Pemilikan syarikat boleh berubah dari semasa ke semasa, jadi senarai ini boleh ketinggalan zaman. Menurut KPDN, “Buatan Malaysia” ialah produk yang dihasilkan di Malaysia dengan sekurang-kurangnya 51% bahan atau kos pengeluaran tempatan, manakala “Dibuat oleh Malaysia” ialah produk milik harta intelek Malaysia yang pembuatannya mungkin dilakukan di luar negara (rujuk laman KPDN untuk takrifan rasmi). Pemilik jenama yang mendapati maklumat salah, sila hubungi kami.',
+        },
         data: {
           h: 'Dari mana data datang?',
           p: 'Maklumat produk datang daripada Open Food Facts, Open Beauty Facts dan Open Products Facts (lesen ODbL) serta sumbangan pengguna yang telah disemak. Pautan sumber ditunjukkan pada setiap produk.',
@@ -442,6 +446,10 @@ const resources = {
         how: {
           h: 'How is the status decided?',
           p: '"Made in Malaysia" is only given by an admin after seeing evidence such as a label photo or a manufacturer address. "Likely Malaysian" is based on open data. Contributors can send in information, but a moderator always reviews it first and contributors cannot set a status.',
+        },
+        ownership: {
+          h: 'Brands and ownership',
+          p: '"Malaysian brand, origin unconfirmed" means we believe the brand is Malaysian-owned based on a list we have not fully verified. It does not mean the product is made in Malaysia. Company ownership changes over time, so this list can be out of date. According to KPDN, "Made in Malaysia" means produced in Malaysia with at least 51% local materials or production cost, while "Made by Malaysia" means the product is Malaysian-owned intellectual property whose manufacturing may be done abroad (see the KPDN website for the official definitions). Brand owners who find wrong information, please contact us.',
         },
         data: {
           h: 'Where does the data come from?',

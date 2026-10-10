@@ -10,7 +10,7 @@ export default function About() {
   usePageMeta(t('about.title'))
 
   // The sections, in order; the text lives in the translation files.
-  const sections = ['what', 'how', 'data', 'limits', 'contact'] as const
+  const sections = ['what', 'how', 'ownership', 'data', 'limits', 'contact'] as const
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
