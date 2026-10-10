@@ -119,5 +119,8 @@ export const createSubmission = (token: string, input: SubmissionInput) => reque
 // The person's own submissions, newest first.
 export const fetchMySubmissions = (token: string) => request<Submission[]>('GET', '/submissions/mine', { token })
 
+// Report that a product's information looks wrong (needs a confirmed email).
+export const createReport = (token: string, input: { barcode: string; type: string; note: string }) => request<{ message: string }>('POST', '/reports', { token, body: input })
+
 // Tell the server to invalidate this token.
 export const logout = (token: string) => request<void>('POST', '/auth/logout', { token })

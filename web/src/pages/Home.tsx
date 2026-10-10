@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router link for "Lihat semua".
 import { Link } from 'react-router-dom'
 // API calls.
@@ -22,6 +23,8 @@ const HOME_SLUGS = ['food', 'beverages', 'personal-care', 'household']
 export default function Home() {
   // Translate function.
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta('')
   // Load categories; `data` is undefined until the request finishes.
   const categories = useQuery({ queryKey: ['categories'], queryFn: fetchCategories })
   // Load the newest verified products.

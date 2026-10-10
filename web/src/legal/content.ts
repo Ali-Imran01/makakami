@@ -3,7 +3,7 @@
 // Placeholders in [square brackets] must be filled in (operator name, contact email) before launch.
 
 // Version label shown on the pages. Change it on every edit and keep old versions (needed to record what a user accepted).
-export const LEGAL_VERSION = '2026-10-10-draft-4'
+export const LEGAL_VERSION = '2026-10-10-draft-5'
 
 // One block of a document: a heading and its paragraphs.
 export interface Section {
@@ -236,7 +236,6 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           h: '5. Pihak ketiga',
           p: [
             'Open Food Facts: untuk produk yang tiada dalam pangkalan data kami, pelayan kami menghantar kod bar itu sahaja kepada Open Food Facts. Alamat IP anda tidak dihantar.',
-            'Google Fonts: pelayar anda memuat turun fon daripada Google, yang boleh melihat alamat IP anda. Kami bercadang menghos fon sendiri.',
             'Hos: laman web dan API dihos oleh penyedia pihak ketiga (dirancang: Cloudflare dan Hostinger) yang memproses data teknikal bagi pihak kami.',
             'Penghantaran emel: emel pengesahan dan penetapan semula kata laluan dihantar melalui penyedia perkhidmatan emel [penyedia emel – akan diisi], yang menerima alamat emel anda untuk tujuan itu.',
           ],
@@ -309,7 +308,6 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           h: '5. Third parties',
           p: [
             'Open Food Facts: for products that are not in our database, our server sends only the barcode to Open Food Facts. Your IP address is not sent.',
-            'Google Fonts: your browser downloads fonts from Google, which can see your IP address. We plan to host the fonts ourselves.',
             'Hosting: the website and API are hosted by third-party providers (planned: Cloudflare and Hostinger) that process technical data on our behalf.',
             'Email delivery: confirmation and password-reset emails are sent through an email service provider [email provider – to be added], which receives your email address for that purpose.',
           ],

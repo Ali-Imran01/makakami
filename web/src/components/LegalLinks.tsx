@@ -12,7 +12,11 @@ export default function LegalLinks() {
     // Small muted text, centred, stacked with a small gap.
     <footer className="flex flex-col items-center gap-2 pt-2 text-caption font-normal text-muted">
       {/* The two policy links; py-2 makes each tap target taller. */}
-      <nav aria-label={t('legal.navLabel')} className="flex gap-4">
+      <nav aria-label={t('legal.navLabel')} className="flex flex-wrap justify-center gap-x-4">
+        {/* About and contact. */}
+        <Link to="/tentang" className="py-2 font-semibold text-navy">
+          {t('about.title')}
+        </Link>
         {/* Terms of Service. */}
         <Link to="/terma" className="py-2 font-semibold text-navy">
           {t('legal.terms')}

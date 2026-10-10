@@ -6,6 +6,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers.
 import { Link, useSearchParams } from 'react-router-dom'
 // API calls.
@@ -18,6 +19,8 @@ import SearchInput from '../components/SearchInput'
 export default function Search() {
   // Translate function and the current language.
   const { t, i18n } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('search.title'))
   // The query string holds the search text, optional category and page.
   const [sp] = useSearchParams()
   // Search text (trimmed), category slug to search within, and page number.
@@ -57,7 +60,7 @@ export default function Search() {
 
   return (
     // Centred column; bottom padding clears the phone tab bar.
-    <div className="mx-auto max-w-xl px-4 pt-5 pb-[110px] lg:max-w-5xl lg:pb-10">
+    <div className="mx-auto max-w-xl px-4 pt-5 pb-6 lg:max-w-5xl lg:pb-8">
       {/* Header: back and title. */}
       <header className="flex items-center gap-3 pb-4">
         {/* Back to Home. */}

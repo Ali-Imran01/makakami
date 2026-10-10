@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 import { Link } from 'react-router-dom'
 import { ApiError } from '../api'
 import { forgotPassword } from '../authApi'
@@ -10,6 +11,8 @@ import TextField from '../components/TextField'
 // "Forgot password" page, route /lupa-kata-laluan: asks for the email and sends a reset link.
 export default function ForgotPassword() {
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('auth.forgotTitle'), true)
   const [email, setEmail] = useState('')
   const [busy, setBusy] = useState(false)
   // True once the request went through (the same message is shown whether or not the email has an account).
@@ -32,7 +35,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       <h1 className="text-title">{t('auth.forgotTitle')}</h1>
 
       {sent ? (

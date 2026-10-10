@@ -214,6 +214,7 @@ export default function HomeWeb() {
           </span>
           {/* Legal links. */}
           <span className="flex gap-4">
+            <Link to="/tentang">{t('about.title')}</Link>
             <Link to="/privasi">{t('legal.privacy')}</Link>
             <Link to="/terma">{t('legal.terms')}</Link>
           </span>

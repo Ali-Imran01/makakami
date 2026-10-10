@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { ApiError } from '../api'
 import { resetPassword } from '../authApi'
@@ -10,6 +11,8 @@ import TextField from '../components/TextField'
 // "Choose a new password" page, route /tetapkan-semula?token=...&email=... (the address in the emailed link).
 export default function ResetPassword() {
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('auth.resetTitle'), true)
   const navigate = useNavigate()
   const [params] = useSearchParams()
   // The one-time token and the email come from the link.
@@ -47,7 +50,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       <h1 className="text-title">{t('auth.resetTitle')}</h1>
 
       {broken ? (

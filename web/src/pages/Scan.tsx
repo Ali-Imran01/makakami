@@ -4,6 +4,7 @@ import { Flashlight, X } from 'lucide-react'
 import { useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Link for the close button; useNavigate to jump to the result page.
 import { Link, useNavigate } from 'react-router-dom'
 // Shared origin badge.
@@ -20,6 +21,8 @@ const BARCODE_PATTERN = /^\d{8,14}$/
 export default function Scan() {
   // Translate function.
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('scan.title'))
   // Function to change route.
   const navigate = useNavigate()
   // Message shown under the manual input when the typed code is invalid ('' = no error).

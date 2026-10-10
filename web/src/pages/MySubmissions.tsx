@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Check, Clock, X } from 'lucide-react'
 // Hook for translated text and the current language.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../authContext'
 import { fetchMySubmissions, type Submission } from '../authApi'
@@ -18,6 +19,8 @@ const STATUS_LOOK = {
 // "My submissions" page, route /sumbangan-saya: what the person sent in and what happened to it.
 export default function MySubmissions() {
   const { t, i18n } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('mySubmissions.title'), true)
   const { user, token, loading } = useAuth()
   // Only runs once we know who is logged in.
   const list = useQuery({ queryKey: ['submissions', 'mine'], queryFn: () => fetchMySubmissions(token ?? ''), enabled: Boolean(token) })
@@ -30,7 +33,7 @@ export default function MySubmissions() {
   const date = (iso: string) => new Date(iso).toLocaleDateString(i18n.language === 'ms' ? 'ms-MY' : 'en-MY', { dateStyle: 'medium' })
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-xl flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       <h1 className="text-title">{t('mySubmissions.title')}</h1>
 
       {list.isPending && <p className="text-muted">{t('loading')}</p>}

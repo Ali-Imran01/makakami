@@ -6,6 +6,7 @@ import { ChevronLeft, Search, SlidersHorizontal, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers: URL parts and query-string state.
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 // API calls.
@@ -65,6 +66,7 @@ export default function CategoryList() {
   // Category data (may still be loading) and a helper to pick the right language.
   const cat = category.data
   const name = cat ? (ms ? cat.name_ms : cat.name_en) : ''
+  usePageMeta(name)
   // Subcategories to offer (a subcategory page has none).
   const subs = cat?.children ?? []
   // Items for the grid.
@@ -73,7 +75,7 @@ export default function CategoryList() {
   // Unknown category (404 from the API).
   if (category.isError) {
     return (
-      <div className="mx-auto max-w-xl px-4 pt-5 pb-28">
+      <div className="mx-auto max-w-xl px-4 pt-5 pb-6">
         {/* Message and a way back. */}
         <p className="text-muted">{t('error')}</p>
         <Link to="/kategori" className="font-bold text-navy">
@@ -114,7 +116,7 @@ export default function CategoryList() {
 
   return (
     // Phones: full width. Desktop: centred, max 1200px, 24px side padding.
-    <div className="mx-auto max-w-xl pb-[110px] lg:max-w-[1200px] lg:px-6 lg:pt-7 lg:pb-16">
+    <div className="mx-auto max-w-xl pb-6 lg:max-w-[1200px] lg:px-6 lg:pt-7 lg:pb-8">
       {/* ===== Desktop breadcrumb ===== */}
       <nav aria-label={t('list.breadcrumb')} className="mb-6 hidden gap-2 text-label font-normal text-muted lg:flex">
         <Link to="/">{t('list.home')}</Link>

@@ -2,6 +2,7 @@
 import { ChevronLeft } from 'lucide-react'
 // Hook for translated text and the current language.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers for going back.
 import { useLocation, useNavigate } from 'react-router-dom'
 import LangToggle from '../components/LangToggle'
@@ -24,10 +25,11 @@ export default function Legal({ doc }: Props) {
   const location = useLocation()
   // Pick the Malay or English text; any other language falls back to Malay (our default).
   const content = LEGAL[doc][i18n.language === 'en' ? 'en' : 'ms']
+  usePageMeta(content.title)
 
   return (
     // Centred column; bottom padding clears the tab bar on phones.
-    <div className="mx-auto max-w-xl px-4 pt-5 pb-28 lg:pb-10">
+    <div className="mx-auto max-w-xl px-4 pt-5 pb-6 lg:pb-8">
       {/* Header: back button, spacer-free title area, language switch. */}
       <header className="flex items-center justify-between gap-3 pb-4">
         {/* Back: previous page, or Home if this was the first page opened. */}

@@ -46,6 +46,52 @@ const resources = {
         cameraDenied: 'Kamera tidak dapat dibuka. Benarkan akses kamera, atau taip kod bar di bawah.',
         cameraUnsupported: 'Kamera tidak tersedia pada pelayar ini. Taip kod bar di bawah.',
       },
+      // Small shared texts.
+      a11y: { skip: 'Langkau ke kandungan' },
+      // "Laporkan salah" dialog on the result page.
+      report: {
+        title: 'Laporkan maklumat yang salah',
+        type: 'Apa yang salah?',
+        types: { wrong_origin: 'Status asal', wrong_name: 'Nama atau jenama', wrong_photo: 'Foto', wrong_category: 'Kategori', other: 'Lain-lain' },
+        note: 'Terangkan',
+        noteHelp: '10 hingga 500 aksara. Nyatakan apa yang betul dan bagaimana anda tahu.',
+        submit: 'Hantar laporan',
+        cancel: 'Batal',
+        thanks: 'Terima kasih. Laporan anda akan disemak oleh kakitangan.',
+        close: 'Tutup',
+        verifyFirst: 'Sila sahkan emel anda dahulu (lihat halaman profil).',
+      },
+      notFound: {
+        title: 'Halaman tidak dijumpai',
+        body: 'Alamat ini tidak wujud atau telah dialihkan.',
+        home: 'Ke halaman utama',
+        scan: 'Imbas kod bar',
+      },
+      // About page (draft wording).
+      about: {
+        title: 'Tentang',
+        lead: 'MakaKami membantu rakyat Malaysia menyemak sama ada sesuatu produk dikaitkan dengan Malaysia, supaya mudah menyokong produk tempatan.',
+        what: {
+          h: 'Apa itu MakaKami?',
+          p: 'Imbas kod bar, cari nama produk atau layari kategori, dan lihat status asal produk bersama bukti dan tahap keyakinan. Tiada penilaian jenama: hanya fakta dan bukti.',
+        },
+        how: {
+          h: 'Bagaimana status ditentukan?',
+          p: '“Buatan Malaysia” hanya diberikan oleh admin selepas melihat bukti seperti foto label atau alamat pengilang. “Mungkin Malaysia” berdasarkan data terbuka. Penyumbang boleh menghantar maklumat, tetapi semuanya disemak moderator dahulu dan penyumbang tidak boleh menetapkan status.',
+        },
+        data: {
+          h: 'Dari mana data datang?',
+          p: 'Maklumat produk datang daripada Open Food Facts, Open Beauty Facts dan Open Products Facts (lesen ODbL) serta sumbangan pengguna yang telah disemak. Pautan sumber ditunjukkan pada setiap produk.',
+        },
+        limits: {
+          h: 'Had',
+          p: 'Maklumat boleh tersilap atau ketinggalan zaman. Jangan bergantung padanya untuk keputusan keselamatan, alahan atau status halal; untuk halal, semak portal rasmi JAKIM. MakaKami tidak berkaitan dengan mana-mana jenama, GS1 Malaysia, JAKIM atau Open Food Facts.',
+        },
+        contact: {
+          h: 'Hubungi kami',
+          p: 'Jumpa maklumat yang salah, atau pemilik jenama yang mahu membetulkan sesuatu? Emel: [emel perhubungan – akan diisi].',
+        },
+      },
       // Accounts: log in, sign up, profile.
       auth: {
         loginTitle: 'Log masuk',
@@ -127,8 +173,12 @@ const resources = {
       staff: {
         title: 'Kawasan kakitangan',
         noAccess: 'Halaman ini hanya untuk moderator dan admin.',
-        tabs: { queue: 'Semakan', product: 'Produk', users: 'Pengguna', audit: 'Log' },
+        tabs: { queue: 'Semakan', reports: 'Laporan', product: 'Produk', users: 'Pengguna', audit: 'Log' },
         queueEmpty: 'Tiada apa-apa di sini.',
+        reportStatus: { open: 'Terbuka', resolved: 'Diselesaikan', dismissed: 'Ditolak' },
+        resolutionNote: 'Catatan (wajib jika ditolak)',
+        resolve: 'Selesai',
+        dismiss: 'Tolak laporan',
         currentStatus: 'Status sekarang: {{status}}',
         setStatus: 'Status asal',
         statusDefault: '(lalai yang berhati-hati)',
@@ -352,6 +402,49 @@ const resources = {
         cameraDenied: 'Could not open the camera. Allow camera access, or type the barcode below.',
         cameraUnsupported: 'The camera is not available in this browser. Type the barcode below.',
       },
+      a11y: { skip: 'Skip to content' },
+      report: {
+        title: 'Report wrong information',
+        type: 'What is wrong?',
+        types: { wrong_origin: 'Origin status', wrong_name: 'Name or brand', wrong_photo: 'Photo', wrong_category: 'Category', other: 'Something else' },
+        note: 'Explain',
+        noteHelp: '10 to 500 characters. Say what is correct and how you know.',
+        submit: 'Send report',
+        cancel: 'Cancel',
+        thanks: 'Thank you. Staff will review your report.',
+        close: 'Close',
+        verifyFirst: 'Please confirm your email first (see your profile).',
+      },
+      notFound: {
+        title: 'Page not found',
+        body: 'This address does not exist or has moved.',
+        home: 'Go to the home page',
+        scan: 'Scan a barcode',
+      },
+      about: {
+        title: 'About',
+        lead: 'MakaKami helps Malaysians check whether a product is linked to Malaysia, so it is easy to support local products.',
+        what: {
+          h: 'What is MakaKami?',
+          p: 'Scan a barcode, search a product name or browse categories, and see a product\'s origin status together with the evidence and a confidence level. We do not rate brands: only facts and evidence.',
+        },
+        how: {
+          h: 'How is the status decided?',
+          p: '"Made in Malaysia" is only given by an admin after seeing evidence such as a label photo or a manufacturer address. "Likely Malaysian" is based on open data. Contributors can send in information, but a moderator always reviews it first and contributors cannot set a status.',
+        },
+        data: {
+          h: 'Where does the data come from?',
+          p: 'Product information comes from Open Food Facts, Open Beauty Facts and Open Products Facts (ODbL licence) and from reviewed user contributions. A link to the source is shown on each product.',
+        },
+        limits: {
+          h: 'Limits',
+          p: 'Information can be wrong or out of date. Do not rely on it for safety, allergy or halal decisions; for halal, check the official JAKIM portal. MakaKami is not affiliated with any brand, GS1 Malaysia, JAKIM or Open Food Facts.',
+        },
+        contact: {
+          h: 'Contact us',
+          p: 'Found wrong information, or a brand owner who wants something corrected? Email: [contact email – to be added].',
+        },
+      },
       auth: {
         loginTitle: 'Log in',
         registerTitle: 'Create an account',
@@ -398,8 +491,12 @@ const resources = {
       staff: {
         title: 'Staff area',
         noAccess: 'This page is only for moderators and admins.',
-        tabs: { queue: 'Review', product: 'Product', users: 'People', audit: 'Log' },
+        tabs: { queue: 'Review', reports: 'Reports', product: 'Product', users: 'People', audit: 'Log' },
         queueEmpty: 'Nothing here.',
+        reportStatus: { open: 'Open', resolved: 'Resolved', dismissed: 'Dismissed' },
+        resolutionNote: 'Note (required when dismissing)',
+        resolve: 'Resolved',
+        dismiss: 'Dismiss report',
         currentStatus: 'Current status: {{status}}',
         setStatus: 'Origin status',
         statusDefault: '(cautious default)',

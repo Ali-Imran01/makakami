@@ -95,6 +95,26 @@ export const createStaffProduct = (token: string, body: ProductFormBody) => requ
 export const updateStaffProduct = (token: string, barcode: string, body: ProductFormBody) =>
   request<{ barcode: string }>('PUT', `/staff/products/${encodeURIComponent(barcode)}`, { token, body })
 
+// A report of wrong information, as staff see it.
+export interface StaffReport {
+  id: number
+  type: 'wrong_origin' | 'wrong_name' | 'wrong_photo' | 'wrong_category' | 'other'
+  note: string
+  status: 'open' | 'resolved' | 'dismissed'
+  created_at: string
+  // The reporter's name only (no email).
+  reporter: string | null
+  product: { barcode: string; name: string; origin_status: string } | null
+  resolution_note: string | null
+}
+
+export const fetchReports = (token: string, status: string) =>
+  request<{ data: StaffReport[]; counts: Partial<Record<'open' | 'resolved' | 'dismissed', number>> }>('GET', `/staff/reports?status=${status}`, { token })
+
+// Close a report: "resolve" (it was right and is dealt with) or "dismiss" (it was not; needs a reason).
+export const closeReport = (token: string, id: number, kind: 'resolve' | 'dismiss', resolutionNote: string) =>
+  request<unknown>('POST', `/staff/reports/${id}/${kind}`, { token, body: { resolution_note: resolutionNote || undefined } })
+
 export const fetchStaffUsers = (token: string, q: string) => request<StaffUser[]>('GET', `/staff/users?q=${encodeURIComponent(q)}`, { token })
 
 // Change someone's role (the server applies the ladder rules).

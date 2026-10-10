@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers.
 import { Link, Navigate } from 'react-router-dom'
 import { ApiError } from '../api'
@@ -13,6 +14,8 @@ import { LEGAL_VERSION } from '../legal/content'
 // Sign-up page, route /daftar. Creates a normal user account.
 export default function Register() {
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('auth.registerTitle'), true)
   const { user, register } = useAuth()
   // Form values and state.
   const [name, setName] = useState('')
@@ -57,7 +60,7 @@ export default function Register() {
   const first = (field: string) => fieldErrors[field]?.[0]
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       {/* Page title (the page's h1). */}
       <h1 className="text-title">{t('auth.registerTitle')}</h1>
       <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">

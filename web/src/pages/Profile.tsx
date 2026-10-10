@@ -2,6 +2,7 @@
 import { useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers.
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../authContext'
@@ -11,6 +12,8 @@ import LangToggle from '../components/LangToggle'
 // Profile page, route /profil: who you are, email confirmation status, and log out.
 export default function Profile() {
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('auth.profileTitle'), true)
   const { user, token, loading, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
@@ -44,7 +47,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       {/* Title and language switch. */}
       <div className="flex items-center justify-between">
         <h1 className="text-title">{t('auth.profileTitle')}</h1>

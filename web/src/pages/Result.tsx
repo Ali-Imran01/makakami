@@ -6,11 +6,14 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers: params from the URL, links, navigation, and the current location.
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 // API call and the error type that carries the HTTP status.
 import { ApiError, logScan } from '../api'
+import { useAuth } from '../authContext'
 import AlternativeCard from '../components/AlternativeCard'
+import ReportDialog from '../components/ReportDialog'
 import ConfidenceBar from '../components/ConfidenceBar'
 import EvidenceRow from '../components/EvidenceRow'
 import { VARIANT, type Variant } from '../status'
@@ -38,6 +41,9 @@ export default function Result() {
   const navigate = useNavigate()
   // location.key is "default" when this is the first page the visitor opened (nothing to go back to).
   const location = useLocation()
+  // The signed-in person (needed for reporting) and whether the report dialog is open.
+  const { user, token } = useAuth()
+  const [reportOpen, setReportOpen] = useState(false)
   // Briefly true after the link was copied (when the browser has no share sheet).
   const [copied, setCopied] = useState(false)
 
@@ -47,6 +53,9 @@ export default function Result() {
     queryFn: () => fetchProductWithCache(barcode),
     retry: (count, err) => !(err instanceof ApiError && err.status === 404) && count < 2,
   })
+
+  // Tab title: the product's name once it is known.
+  usePageMeta(product?.name ?? t('result.title'))
 
   // Once the product has loaded, save its name and status in the recent-scans list.
   useEffect(() => {
@@ -280,8 +289,12 @@ export default function Result() {
 
       {/* Action buttons. */}
       <div className="flex gap-3">
-        {/* Reporting needs a login (Phase 3), so it is shown but disabled for now. */}
-        <button type="button" disabled title={t('comingSoon')} className={`${ctaClass} border border-line bg-surface text-ink opacity-60`}>
+        {/* Report a mistake: guests are sent to log in first and come back here. */}
+        <button
+          type="button"
+          onClick={() => (user ? setReportOpen(true) : navigate('/log-masuk', { state: { from: location.pathname } }))}
+          className={`${ctaClass} border border-line bg-surface text-ink`}
+        >
           {t('result.report')}
         </button>
         {/* Main action depends on the verdict. */}
@@ -298,12 +311,14 @@ export default function Result() {
           </a>
         )}
         {(variant === 'likely' || variant === 'unknown') && (
-          // Helping verify needs a login and photo upload (Phase 3): shown but disabled for now.
-          <button type="button" disabled title={t('comingSoon')} className={`${ctaClass} bg-navy text-white opacity-60`}>
+          // Helping verify = sending in what you know about this product (the contribute form; it asks for a login first).
+          <Link to={`/sumbang?barcode=${product.barcode ?? barcode}`} className={`${ctaClass} bg-navy text-white`}>
             {t(`result.cta.${variant}`)}
-          </button>
+          </Link>
         )}
       </div>
+      {/* The report form (a dialog), for signed-in people. */}
+      {user && token && <ReportDialog barcode={product.barcode ?? barcode} token={token} open={reportOpen} onClose={() => setReportOpen(false)} />}
     </div>,
   )
 }

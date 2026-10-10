@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useState, type FormEvent } from 'react'
 // Hook for translated text and the current language.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers.
 import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import { ApiError, fetchCategories } from '../api'
@@ -22,6 +23,8 @@ const EMPTY = { barcode: '', name: '', brand: '', category: '', manufacturer: ''
 // Nothing here publishes anything: every submission waits for a moderator.
 export default function Contribute() {
   const { t, i18n } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('contribute.title'), true)
   const { user, token, loading } = useAuth()
   const location = useLocation()
   // "?barcode=..." pre-fills the barcode (used by the "product not found" screen).
@@ -70,7 +73,7 @@ export default function Contribute() {
 
   // Wrapper shared by every state of the page.
   const frame = (body: React.ReactNode) => (
-    <div className="mx-auto flex max-w-xl flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-xl flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       <h1 className="text-title">{t('contribute.title')}</h1>
       {body}
     </div>

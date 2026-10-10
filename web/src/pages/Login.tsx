@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // Router helpers: links, moving to another page, and the query string (?verified=1).
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { ApiError } from '../api'
@@ -12,6 +13,8 @@ import TextField from '../components/TextField'
 export default function Login() {
   // Translate function.
   const { t } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('auth.loginTitle'), true)
   // Who is signed in and how to log in.
   const { user, login } = useAuth()
   const navigate = useNavigate()
@@ -49,7 +52,7 @@ export default function Login() {
 
   return (
     // Centred narrow column; bottom padding clears the phone tab bar.
-    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-28 lg:pb-16">
+    <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pt-8 pb-6 lg:pb-8">
       {/* Page title (the page's h1). */}
       <h1 className="text-title">{t('auth.loginTitle')}</h1>
 

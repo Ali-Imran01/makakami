@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 import { useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
+import { usePageMeta } from '../usePageMeta'
 // API call.
 import { fetchCategories } from '../api'
 import CategoryTile from '../components/CategoryTile'
@@ -14,6 +15,8 @@ import CategoryTile from '../components/CategoryTile'
 export default function Categories() {
   // Translate function and the current language.
   const { t, i18n } = useTranslation()
+  // Browser tab title (and "noindex" where the page must stay out of search engines).
+  usePageMeta(t('cat.title'))
   // What the visitor typed in the "Cari kategori" box.
   const [text, setText] = useState('')
   // Load all categories.
@@ -26,7 +29,7 @@ export default function Categories() {
 
   return (
     // Page padding as in the design: 16px sides, 20px top, room at the bottom for the tab bar.
-    <div className="mx-auto flex max-w-xl flex-col gap-4 px-4 pt-5 pb-[110px] lg:max-w-5xl lg:pb-10">
+    <div className="mx-auto flex max-w-xl flex-col gap-4 px-4 pt-5 pb-6 lg:max-w-5xl lg:pb-8">
       {/* Title row, 44px tall. */}
       <header className="flex h-11 items-center">
         {/* The page's h1. */}
