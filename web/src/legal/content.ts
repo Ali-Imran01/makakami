@@ -3,7 +3,7 @@
 // Placeholders in [square brackets] must be filled in (operator name, contact email) before launch.
 
 // Version label shown on the pages. Change it on every edit and keep old versions (needed to record what a user accepted).
-export const LEGAL_VERSION = '2026-10-10-draft'
+export const LEGAL_VERSION = '2026-10-10-draft-2'
 
 // One block of a document: a heading and its paragraphs.
 export interface Section {
@@ -62,39 +62,47 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'Anda tidak boleh: menyalahgunakan perkhidmatan atau cuba mengganggu operasinya; menghantar permintaan automatik secara berlebihan; cuba mengakses data yang bukan untuk anda; atau menggunakan perkhidmatan untuk tujuan yang menyalahi undang-undang.',
           ],
         },
+        // New section: accounts.
         {
-          h: '6. Kandungan anda (apabila ciri komuniti dibuka)',
+          h: '6. Akaun anda',
+          p: [
+            'Anda boleh menggunakan MakaKami tanpa akaun. Jika anda mendaftar, anda mesti memberi maklumat yang betul, menjaga kata laluan anda daripada pengetahuan orang lain, dan bertanggungjawab atas aktiviti di bawah akaun anda. Beritahu kami jika anda fikir akaun anda telah disalahgunakan.',
+            'Peranan moderator dan admin diberikan oleh kami dan boleh ditarik balik pada bila-bila masa. Keputusan mereka ialah maklumat dan tertakluk kepada semakan. Kami boleh menggantung atau menutup akaun yang melanggar terma ini.',
+          ],
+        },
+        {
+          h: '7. Kandungan anda (apabila ciri sumbangan dibuka)',
           p: [
             'Apabila akaun dan sumbangan dibuka, anda kekal memiliki kandungan anda (contohnya foto label). Anda memberi kami lesen terhad, bukan eksklusif, untuk menyimpan dan memaparkannya dalam MakaKami bagi tujuan mengesahkan dan menunjukkan maklumat produk.',
             'Anda menjamin bahawa anda berhak menghantar kandungan itu dan ia tidak melanggar hak orang lain atau undang-undang. Kami boleh membuang kandungan yang melanggar terma ini.',
           ],
         },
         {
-          h: '7. Pembetulan dan aduan',
+          h: '8. Pembetulan dan aduan',
           p: [
             'Jika anda pemilik jenama atau pengguna dan mendapati maklumat yang salah, hubungi kami. Kami akan menyemak dan membetulkan atau membuang maklumat itu jika wajar.',
           ],
         },
         {
-          h: '8. Hak harta intelek dan pihak ketiga',
+          h: '9. Hak harta intelek dan pihak ketiga',
           p: [
             'Reka bentuk dan kod MakaKami adalah milik kami. Nama jenama dan imej produk kekal milik pemiliknya masing-masing; MakaKami tidak berafiliasi dengan mana-mana jenama, GS1 Malaysia, JAKIM atau Open Food Facts. Kami tidak bertanggungjawab atas laman atau perkhidmatan pihak ketiga yang dipautkan.',
           ],
         },
         {
-          h: '9. Had liabiliti',
+          h: '10. Had liabiliti',
           p: [
             'Setakat yang dibenarkan oleh undang-undang, MakaKami tidak bertanggungjawab atas kerugian tidak langsung atau berbangkit akibat penggunaan atau ketidakupayaan menggunakan perkhidmatan. Tiada apa-apa dalam terma ini yang mengecualikan liabiliti yang tidak boleh dikecualikan di bawah undang-undang Malaysia, termasuk undang-undang perlindungan pengguna.',
           ],
         },
         {
-          h: '10. Perubahan terma',
+          h: '11. Perubahan terma',
           p: [
             'Kami boleh mengemas kini terma ini. Versi terkini sentiasa di halaman ini bersama nombor versinya. Penggunaan berterusan selepas perubahan bermaksud anda menerimanya.',
           ],
         },
         {
-          h: '11. Undang-undang dan hubungi kami',
+          h: '12. Undang-undang dan hubungi kami',
           p: [
             'Terma ini tertakluk kepada undang-undang Malaysia dan mahkamah Malaysia. Kami menggalakkan penyelesaian secara rundingan dahulu.',
             'Pertanyaan dan notis: [emel perhubungan – akan diisi].',
@@ -139,39 +147,47 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'You must not: misuse the service or try to disrupt it; send excessive automated requests; try to access data that is not meant for you; or use the service for anything unlawful.',
           ],
         },
+        // New section: accounts.
         {
-          h: '6. Your content (when community features open)',
+          h: '6. Your account',
+          p: [
+            'You can use MakaKami without an account. If you sign up, you must give correct information, keep your password to yourself, and you are responsible for activity under your account. Tell us if you think your account has been misused.',
+            'Moderator and admin roles are granted by us and can be withdrawn at any time. Their decisions are information and are open to review. We may suspend or close accounts that break these terms.',
+          ],
+        },
+        {
+          h: '7. Your content (when contribution features open)',
           p: [
             'When accounts and contributions open, you keep ownership of what you submit (for example label photos). You give us a limited, non-exclusive licence to store and display it in MakaKami in order to verify and show product information.',
             'You promise that you have the right to submit the content and that it does not infringe anyone else\'s rights or the law. We may remove content that breaks these terms.',
           ],
         },
         {
-          h: '7. Corrections and complaints',
+          h: '8. Corrections and complaints',
           p: [
             'If you are a brand owner or a user and you find wrong information, contact us. We will review it and correct or remove it where appropriate.',
           ],
         },
         {
-          h: '8. Intellectual property and third parties',
+          h: '9. Intellectual property and third parties',
           p: [
             'The MakaKami design and code belong to us. Brand names and product images remain the property of their owners; MakaKami is not affiliated with any brand, GS1 Malaysia, JAKIM or Open Food Facts. We are not responsible for third-party sites or services we link to.',
           ],
         },
         {
-          h: '9. Limit of liability',
+          h: '10. Limit of liability',
           p: [
             'To the extent the law allows, MakaKami is not liable for indirect or consequential loss arising from using, or being unable to use, the service. Nothing in these terms excludes liability that cannot be excluded under Malaysian law, including consumer protection law.',
           ],
         },
         {
-          h: '10. Changes to these terms',
+          h: '11. Changes to these terms',
           p: [
             'We may update these terms. The latest version is always on this page with its version number. Continuing to use the service after a change means you accept it.',
           ],
         },
         {
-          h: '11. Governing law and contact',
+          h: '12. Governing law and contact',
           p: [
             'These terms are governed by Malaysian law and the courts of Malaysia. We encourage settling disputes by talking first.',
             'Questions and notices: [contact email – to be added].',
@@ -204,14 +220,16 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
         {
           h: '3. Data pada peranti anda',
           p: [
-            'Kami menyimpan pilihan bahasa dan 5 imbasan terkini dalam storan pelayar anda (localStorage). Data ini kekal pada peranti anda dan tidak dihantar kepada kami. Anda boleh memadamnya dengan mengosongkan data tapak dalam pelayar.',
+            'Kami menyimpan pilihan bahasa, 5 imbasan terkini dan salinan 20 produk yang baru anda lihat (supaya ia boleh dibuka tanpa sambungan) dalam storan pelayar anda (localStorage). Data ini kekal pada peranti anda dan tidak dihantar kepada kami. Jika anda log masuk, token log masuk anda juga disimpan di sini sehingga anda log keluar atau ia tamat (14 hari). Anda boleh memadamnya dengan mengosongkan data tapak dalam pelayar.',
             'Kami tidak menggunakan kuki pengiklanan atau analitik.',
           ],
         },
         {
-          h: '4. Akaun (belum tersedia)',
+          h: '4. Akaun',
           p: [
-            'Kami belum meminta nama, e-mel, akaun Google atau foto daripada anda. Apabila akaun dan sumbangan dibuka, kami akan mengemas kini dasar ini dan menerangkan data yang dikumpul sebelum anda menggunakannya.',
+            'Akaun adalah pilihan. Jika anda mendaftar, kami menyimpan nama, alamat emel, kata laluan anda (disimpan dalam bentuk cincang yang tidak boleh dibaca semula, jadi kami tidak dapat melihatnya), peranan akaun, serta masa dan versi Terma dan Dasar Privasi yang anda setuju. Kami menghantar emel untuk mengesahkan alamat anda.',
+            'Tindakan kakitangan yang mengubah data (contohnya menukar peranan seseorang atau status sesuatu produk) direkodkan dalam log audit bersama akaun yang melakukannya, sebab dan masanya.',
+            'Kami belum menyimpan foto atau sumbangan produk daripada anda. Apabila ciri sumbangan dibuka, kami akan mengemas kini dasar ini dan menerangkan data yang dikumpul sebelum anda menggunakannya. Log masuk dengan Google belum tersedia.',
           ],
         },
         {
@@ -220,6 +238,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'Open Food Facts: untuk produk yang tiada dalam pangkalan data kami, pelayan kami menghantar kod bar itu sahaja kepada Open Food Facts. Alamat IP anda tidak dihantar.',
             'Google Fonts: pelayar anda memuat turun fon daripada Google, yang boleh melihat alamat IP anda. Kami bercadang menghos fon sendiri.',
             'Hos: laman web dan API dihos oleh penyedia pihak ketiga (dirancang: Cloudflare dan Hostinger) yang memproses data teknikal bagi pihak kami.',
+            'Penghantaran emel: emel pengesahan dihantar melalui penyedia perkhidmatan emel [penyedia emel – akan diisi], yang menerima alamat emel anda untuk tujuan itu.',
           ],
         },
         {
@@ -274,14 +293,16 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
         {
           h: '3. Data on your device',
           p: [
-            'We keep your language choice and your last 5 scans in your browser storage (localStorage). This stays on your device and is not sent to us. You can delete it by clearing site data in your browser.',
+            'We keep your language choice, your last 5 scans and a copy of the last 20 products you viewed (so they can open without a connection) in your browser storage (localStorage). This stays on your device and is not sent to us. If you log in, your login token is also kept here until you log out or it expires (14 days). You can delete it by clearing site data in your browser.',
             'We do not use advertising or analytics cookies.',
           ],
         },
         {
-          h: '4. Accounts (not available yet)',
+          h: '4. Accounts',
           p: [
-            'We do not yet ask for your name, email, Google account or photos. When accounts and contributions open, we will update this policy and explain what is collected before you use them.',
+            'An account is optional. If you sign up, we store your name, email address, your password (kept as a one-way scrambled hash, so we cannot see it), your account role, and the time and version of the Terms and Privacy Policy you agreed to. We send an email to confirm your address.',
+            'Staff actions that change data (for example changing someone\'s role or a product\'s status) are recorded in an audit log together with the account that did it, the reason and the time.',
+            'We do not yet store photos or product contributions from you. When contribution features open, we will update this policy and explain what is collected before you use them. Logging in with Google is not available yet.',
           ],
         },
         {
@@ -290,6 +311,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
             'Open Food Facts: for products that are not in our database, our server sends only the barcode to Open Food Facts. Your IP address is not sent.',
             'Google Fonts: your browser downloads fonts from Google, which can see your IP address. We plan to host the fonts ourselves.',
             'Hosting: the website and API are hosted by third-party providers (planned: Cloudflare and Hostinger) that process technical data on our behalf.',
+            'Email delivery: confirmation emails are sent through an email service provider [email provider – to be added], which receives your email address for that purpose.',
           ],
         },
         {

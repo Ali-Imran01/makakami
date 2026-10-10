@@ -4,6 +4,8 @@ import { Download } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 // Router links (NavLink knows whether it points at the current page).
 import { Link, NavLink } from 'react-router-dom'
+// Who is signed in (the account link changes with it).
+import { useAuth } from '../authContext'
 // Shared pieces.
 import LangToggle from './LangToggle'
 import SearchInput from './SearchInput'
@@ -12,6 +14,8 @@ import SearchInput from './SearchInput'
 export default function TopNav() {
   // Translate function.
   const { t } = useTranslation()
+  // The signed-in person, if any.
+  const { user } = useAuth()
 
   return (
     // White bar with a 1px bottom border; hidden below lg.
@@ -48,9 +52,9 @@ export default function TopNav() {
         <div className="flex items-center gap-2.5">
           {/* BM / EN switch. */}
           <LangToggle />
-          {/* Login (page not built yet). */}
-          <Link to="/profil" className="flex h-10 items-center rounded-pill border border-line px-4 text-[14px] font-bold text-ink">
-            {t('nav.login')}
+          {/* Login for guests, profile for signed-in people. */}
+          <Link to={user ? '/profil' : '/log-masuk'} className="flex h-10 items-center rounded-pill border border-line px-4 text-[14px] font-bold text-ink">
+            {user ? t('auth.profileTitle') : t('nav.login')}
           </Link>
           {/* APK download: yellow button, navy text (only navy/ink text allowed on yellow). */}
           <a href="#" className="flex h-10 items-center gap-1.5 rounded-pill bg-yellow px-4 text-[14px] font-extrabold text-navy">

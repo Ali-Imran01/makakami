@@ -1,20 +1,35 @@
 <?php
 
+use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScanController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// ---- Accounts ----
+// Sign up and log in; limited per client so passwords can't be guessed quickly. The last word (register, login...) gives each limit
+// its own counter: without it, every "throttle:N,M" route would share one counter and block each other.
+Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:10,60,register');
+Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:6,1,login');
+// The rest need a valid login token.
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/auth/me', [AuthController::class, 'me']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    // Send the confirmation email again.
+    Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware('throttle:3,1,resend');
+    // Admin tools: reachable by admins and super_admins only; the controller applies the ladder rules on top.
+    Route::put('/admin/users/role', [UserRoleController::class, 'update'])->middleware('role:admin');
+});
+// The link inside the confirmation email (`signed` rejects forged or expired links). The name is what Laravel's email message looks up.
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed', 'throttle:6,1,verify'])->name('verification.verify');
 
 Route::get('/categories', [CategoryController::class, 'index']);
 // One category (by slug) with its subcategories, states and counts.
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->where('slug', '[a-z0-9-]+');
 // Record a scan; limited to 60 per minute per client so bots can't inflate the counters.
-Route::post('/scans', [ScanController::class, 'store'])->middleware('throttle:60,1');
+Route::post('/scans', [ScanController::class, 'store'])->middleware('throttle:60,1,scans');
 // Product list for the catalogue, category pages and search (filters in the query string).
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/recent', [ProductController::class, 'recent']);

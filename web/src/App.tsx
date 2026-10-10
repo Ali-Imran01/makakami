@@ -10,6 +10,9 @@ import CategoryList from './pages/CategoryList'
 import Categories from './pages/Categories'
 import Home from './pages/Home'
 import Legal from './pages/Legal'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
 import Result from './pages/Result'
 import Search from './pages/Search'
 
@@ -32,6 +35,10 @@ export default function App() {
             <Route path="/" element={<Home />} />
             {/* Scan screen (full-screen, covers the tab bar). */}
             <Route path="/scan" element={<Scan />} />
+            {/* Accounts: log in, sign up, and the profile (guests are sent to log in). */}
+            <Route path="/log-masuk" element={<Login />} />
+            <Route path="/daftar" element={<Register />} />
+            <Route path="/profil" element={<Profile />} />
             {/* Legal pages (draft text, pending lawyer review). */}
             <Route path="/terma" element={<Legal doc="terms" />} />
             <Route path="/privasi" element={<Legal doc="privacy" />} />

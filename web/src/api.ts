@@ -51,13 +51,20 @@ export interface Product {
 export class ApiError extends Error {
   // The HTTP status code the API answered with.
   status: number
+  // For 422 answers: what is wrong with each form field, e.g. { email: ["The email has already been taken."] }.
+  fieldErrors: Record<string, string[]>
+  // The message the server sent (e.g. "You cannot grant this role."), if any.
+  serverMessage: string
 
-  // Build the error from the status code.
-  constructor(status: number) {
+  // Build the error from the status code, plus the details the server sent (if any).
+  constructor(status: number, fieldErrors: Record<string, string[]> = {}, serverMessage = '') {
     // Human-readable message for logs.
     super(`API ${status}`)
     // Keep the status for callers.
     this.status = status
+    // Keep the details for forms.
+    this.fieldErrors = fieldErrors
+    this.serverMessage = serverMessage
   }
 }
 
