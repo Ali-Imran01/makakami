@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 // Only these columns can be set through create()/fill(); protects against bad input.
-#[Fillable(['barcode', 'name', 'brand_id', 'manufacturer_id', 'category_id', 'origin_status', 'halal', 'image_url', 'quantity', 'manufacturing_places', 'source', 'source_url'])]
+#[Fillable(['barcode', 'name', 'brand_id', 'manufacturer_id', 'category_id', 'origin_status', 'halal', 'image_url', 'quantity', 'manufacturing_places', 'origin_note', 'source', 'source_url'])]
 // A Product is one row in the `products` table.
 class Product extends Model
 {

@@ -71,7 +71,9 @@ export interface ProductDetail extends Product {
   quantity: string | null
   // Where it is made, as free text from open data (e.g. "Selangor, Malaysia").
   manufacturing_places: string | null
-  // Where the data came from: off / obf / opf = Open Food/Beauty/Products Facts, community, demo.
+  // Why a person set the origin status (free text), or null.
+  origin_note: string | null
+  // Where the data came from: off / obf / opf = Open Food/Beauty/Products Facts, manual, community, demo.
   source: string
   // Link to the product's page at the data source (needed for attribution).
   source_url: string | null

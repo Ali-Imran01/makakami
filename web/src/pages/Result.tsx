@@ -210,6 +210,12 @@ export default function Result() {
         <h2 className="px-4 pt-4 pb-2 text-heading">{t('result.evidence')}</h2>
         {/* Admin-approved label photo. */}
         {product.approved_evidence_count > 0 && <EvidenceRow tone="positive" title={t('result.labelChecked')}>{t('result.labelCheckedSub')}</EvidenceRow>}
+        {/* The reason a person gave when they set this status by hand (shown as written, so the evidence is visible). */}
+        {product.origin_note && (
+          <EvidenceRow tone={product.origin_status === 'verified_my' || product.origin_status === 'likely_my' ? 'positive' : 'neutral'} title={t('result.reviewNote')}>
+            {product.origin_note}
+          </EvidenceRow>
+        )}
         {/* Manufacturer and where it is; the tick only shows for Malaysian manufacturers. */}
         {product.manufacturer && (
           <EvidenceRow tone={product.manufacturer.country === 'MY' ? 'positive' : 'neutral'} title={t('result.manufacturer', { name: product.manufacturer.name })}>
