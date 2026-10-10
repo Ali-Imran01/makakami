@@ -9,8 +9,10 @@ import TopNav from './components/TopNav'
 import CategoryList from './pages/CategoryList'
 import Categories from './pages/Categories'
 import Home from './pages/Home'
+import Contribute from './pages/Contribute'
 import Legal from './pages/Legal'
 import Login from './pages/Login'
+import MySubmissions from './pages/MySubmissions'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
 import Result from './pages/Result'
@@ -39,6 +41,9 @@ export default function App() {
             <Route path="/log-masuk" element={<Login />} />
             <Route path="/daftar" element={<Register />} />
             <Route path="/profil" element={<Profile />} />
+            {/* Contributions: send in a product or correction (login needed), and see what happened to your submissions. */}
+            <Route path="/sumbang" element={<Contribute />} />
+            <Route path="/sumbangan-saya" element={<MySubmissions />} />
             {/* Legal pages (draft text, pending lawyer review). */}
             <Route path="/terma" element={<Legal doc="terms" />} />
             <Route path="/privasi" element={<Legal doc="privacy" />} />

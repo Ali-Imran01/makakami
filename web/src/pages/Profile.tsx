@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
 // Router helpers.
-import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../authContext'
 import { resendVerification } from '../authApi'
 import LangToggle from '../components/LangToggle'
@@ -95,6 +95,16 @@ export default function Profile() {
           )}
         </div>
       )}
+
+      {/* Contributions (logged-in people only; the server also requires a confirmed email to send one). */}
+      <div className="flex flex-col gap-3">
+        <Link to="/sumbang" className="flex h-12 items-center justify-center rounded-pill bg-navy text-[15px] font-bold text-white">
+          {t('contribute.title')}
+        </Link>
+        <Link to="/sumbangan-saya" className="flex h-12 items-center justify-center rounded-pill border border-line bg-surface text-[15px] font-bold text-ink">
+          {t('contribute.mine')}
+        </Link>
+      </div>
 
       {/* Log out, then go to the home page. */}
       <button

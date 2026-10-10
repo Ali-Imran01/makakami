@@ -149,6 +149,10 @@ export default function Result() {
           {/* Body text with the barcode filled in. */}
           <p className="text-body text-muted">{t('result.notFoundBody', { barcode })}</p>
         </section>
+        {/* Know this product? Send it in (login needed; a moderator reviews it before anything is published). */}
+        <Link to={`/sumbang?barcode=${barcode}`} className="flex h-12 items-center justify-center rounded-pill border border-line bg-surface text-[14px] font-bold text-ink">
+          {t('result.knowThis')}
+        </Link>
         {/* Back to the scanner. */}
         <Link to="/scan" className="flex h-12 items-center justify-center rounded-pill bg-navy text-[14px] font-bold text-white">
           {t('result.scanAgain')}
@@ -303,3 +307,4 @@ export default function Result() {
     </div>,
   )
 }
+

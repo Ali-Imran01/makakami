@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScanController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 // ---- Accounts ----
@@ -19,6 +20,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     // Send the confirmation email again.
     Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware('throttle:3,1,resend');
+    // Contributions. Sending one needs a confirmed email address; limited to 30 attempts per hour per person (typos in the form count too).
+    Route::post('/submissions', [SubmissionController::class, 'store'])->middleware(['verified', 'throttle:30,60,submit']);
+    Route::get('/submissions/mine', [SubmissionController::class, 'mine']);
     // Admin tools: reachable by admins and super_admins only; the controller applies the ladder rules on top.
     Route::put('/admin/users/role', [UserRoleController::class, 'update'])->middleware('role:admin');
 });

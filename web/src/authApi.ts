@@ -68,5 +68,47 @@ export const fetchMe = (token: string) => request<AuthUser>('GET', '/auth/me', {
 // Ask the server to send the confirmation email again.
 export const resendVerification = (token: string) => request<{ message: string }>('POST', '/email/resend', { token })
 
+// What a contributor can send in. There is deliberately no field for the origin status: moderators decide that.
+export interface SubmissionInput {
+  // 8-14 digit barcode.
+  barcode: string
+  // Proposed product name (required for a product we don't have yet).
+  name?: string
+  brand?: string
+  // Category slug, e.g. "food-snacks".
+  category?: string
+  manufacturer?: string
+  // A Malaysian state or federal territory.
+  state?: string
+  halal?: 'yes' | 'no' | 'unknown'
+  // Pack size as printed.
+  quantity?: string
+  // Optional web link to a photo (real photo upload comes later).
+  image_url?: string
+  // Where the information comes from (10-500 characters); helps the moderator check it.
+  note: string
+}
+
+// A submission as its owner sees it.
+export interface Submission {
+  id: number
+  // A brand new product, or a correction to an existing one.
+  type: 'new_product' | 'correction'
+  barcode: string
+  // The proposed or existing product name.
+  name: string | null
+  // Waiting for a moderator, accepted, or turned down.
+  status: 'pending' | 'approved' | 'rejected'
+  // What the moderator told the contributor.
+  review_note: string | null
+  created_at: string
+}
+
+// Send in a new product or a correction (needs a confirmed email address).
+export const createSubmission = (token: string, input: SubmissionInput) => request<Submission>('POST', '/submissions', { token, body: input })
+
+// The person's own submissions, newest first.
+export const fetchMySubmissions = (token: string) => request<Submission[]>('GET', '/submissions/mine', { token })
+
 // Tell the server to invalidate this token.
 export const logout = (token: string) => request<void>('POST', '/auth/logout', { token })

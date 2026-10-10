@@ -14,6 +14,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 // Turns a brand name into a URL-friendly slug.
 use Illuminate\Support\Str;
+use App\Support\Gtin;
 
 // Adds (or corrects) one product by hand, e.g. a Malaysian product that Open Food Facts doesn't have.
 // Missing values are asked for interactively; pass every option to run it without prompts.
@@ -62,7 +63,7 @@ class AddProduct extends Command
         // A 12-digit UPC-A is stored as the 13-digit EAN with a leading zero, like everywhere else in the app.
         $barcode = strlen($barcode) === 12 ? '0'.$barcode : $barcode;
         // Catch typos: real barcodes have a valid check digit.
-        if (! $this->checkDigitIsValid($barcode) && ! $this->option('ignore-checksum')) {
+        if (! Gtin::isValid($barcode) && ! $this->option('ignore-checksum')) {
             return $this->refuse("The check digit of {$barcode} is wrong (probably a typo). Re-check it, or pass --ignore-checksum.");
         }
 
@@ -203,21 +204,5 @@ class AddProduct extends Command
         $this->error($message);
 
         return self::FAILURE;
-    }
-
-    // Check the GTIN check digit (works for 8, 12, 13 and 14 digit codes).
-    private function checkDigitIsValid(string $code): bool
-    {
-        // Everything except the last digit, and the last digit itself.
-        $body = substr($code, 0, -1);
-        $check = (int) substr($code, -1);
-        // Walk the body from the right: weights 3, 1, 3, 1...
-        $sum = 0;
-        foreach (array_reverse(str_split($body)) as $i => $digit) {
-            $sum += (int) $digit * ($i % 2 === 0 ? 3 : 1);
-        }
-
-        // The check digit tops the sum up to the next multiple of 10.
-        return (10 - $sum % 10) % 10 === $check;
     }
 }

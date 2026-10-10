@@ -3,7 +3,7 @@
 // Placeholders in [square brackets] must be filled in (operator name, contact email) before launch.
 
 // Version label shown on the pages. Change it on every edit and keep old versions (needed to record what a user accepted).
-export const LEGAL_VERSION = '2026-10-10-draft-2'
+export const LEGAL_VERSION = '2026-10-10-draft-3'
 
 // One block of a document: a heading and its paragraphs.
 export interface Section {
@@ -71,9 +71,9 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           ],
         },
         {
-          h: '7. Kandungan anda (apabila ciri sumbangan dibuka)',
+          h: '7. Kandungan anda (sumbangan)',
           p: [
-            'Apabila akaun dan sumbangan dibuka, anda kekal memiliki kandungan anda (contohnya foto label). Anda memberi kami lesen terhad, bukan eksklusif, untuk menyimpan dan memaparkannya dalam MakaKami bagi tujuan mengesahkan dan menunjukkan maklumat produk.',
+            'Anda kekal memiliki apa yang anda hantar (contohnya maklumat produk, dan kelak foto label). Anda memberi kami lesen terhad, bukan eksklusif, untuk menyimpan dan memaparkannya dalam MakaKami bagi tujuan mengesahkan dan menunjukkan maklumat produk. Sumbangan sentiasa disemak oleh moderator sebelum dipaparkan, dan penyumbang tidak boleh menetapkan status asal sesuatu produk.',
             'Anda menjamin bahawa anda berhak menghantar kandungan itu dan ia tidak melanggar hak orang lain atau undang-undang. Kami boleh membuang kandungan yang melanggar terma ini.',
           ],
         },
@@ -156,9 +156,9 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           ],
         },
         {
-          h: '7. Your content (when contribution features open)',
+          h: '7. Your content (contributions)',
           p: [
-            'When accounts and contributions open, you keep ownership of what you submit (for example label photos). You give us a limited, non-exclusive licence to store and display it in MakaKami in order to verify and show product information.',
+            'You keep ownership of what you submit (for example product details, and later label photos). You give us a limited, non-exclusive licence to store and display it in MakaKami in order to verify and show product information. Contributions are always reviewed by a moderator before anything is shown, and contributors cannot set a product\'s origin status.',
             'You promise that you have the right to submit the content and that it does not infringe anyone else\'s rights or the law. We may remove content that breaks these terms.',
           ],
         },
@@ -229,7 +229,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           p: [
             'Akaun adalah pilihan. Jika anda mendaftar, kami menyimpan nama, alamat emel, kata laluan anda (disimpan dalam bentuk cincang yang tidak boleh dibaca semula, jadi kami tidak dapat melihatnya), peranan akaun, serta masa dan versi Terma dan Dasar Privasi yang anda setuju. Kami menghantar emel untuk mengesahkan alamat anda.',
             'Tindakan kakitangan yang mengubah data (contohnya menukar peranan seseorang atau status sesuatu produk) direkodkan dalam log audit bersama akaun yang melakukannya, sebab dan masanya.',
-            'Kami belum menyimpan foto atau sumbangan produk daripada anda. Apabila ciri sumbangan dibuka, kami akan mengemas kini dasar ini dan menerangkan data yang dikumpul sebelum anda menggunakannya. Log masuk dengan Google belum tersedia.',
+            'Jika anda menghantar sumbangan, kami menyimpan apa yang anda isi (kod bar, nama, jenama, kategori, pengilang, negeri, status halal, saiz pek, pautan imej dan nota sumber) bersama akaun anda, serta keputusan semakan moderator. Sumbangan disemak sebelum dipaparkan, dan nama atau emel anda tidak dipaparkan secara awam. Muat naik foto dan log masuk dengan Google belum tersedia.',
           ],
         },
         {
@@ -302,7 +302,7 @@ export const LEGAL: Record<'terms' | 'privacy', Record<'ms' | 'en', Doc>> = {
           p: [
             'An account is optional. If you sign up, we store your name, email address, your password (kept as a one-way scrambled hash, so we cannot see it), your account role, and the time and version of the Terms and Privacy Policy you agreed to. We send an email to confirm your address.',
             'Staff actions that change data (for example changing someone\'s role or a product\'s status) are recorded in an audit log together with the account that did it, the reason and the time.',
-            'We do not yet store photos or product contributions from you. When contribution features open, we will update this policy and explain what is collected before you use them. Logging in with Google is not available yet.',
+            'If you send in a contribution, we store what you filled in (barcode, name, brand, category, manufacturer, state, halal status, pack size, image link and source note) together with your account, and the moderator\'s review decision. Contributions are reviewed before anything is shown, and your name or email is not shown publicly. Photo upload and logging in with Google are not available yet.',
           ],
         },
         {

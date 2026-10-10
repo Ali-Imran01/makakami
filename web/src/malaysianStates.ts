@@ -1,0 +1,20 @@
+// Malaysian states and federal territories, for the "manufacturer state" choice. Must match `states` in api/config/makakami.php,
+// which is what the server accepts.
+export const MALAYSIAN_STATES = [
+  'Johor',
+  'Kedah',
+  'Kelantan',
+  'Melaka',
+  'Negeri Sembilan',
+  'Pahang',
+  'Perak',
+  'Perlis',
+  'Pulau Pinang',
+  'Sabah',
+  'Sarawak',
+  'Selangor',
+  'Terengganu',
+  'W.P. Kuala Lumpur',
+  'W.P. Labuan',
+  'W.P. Putrajaya',
+] as const
