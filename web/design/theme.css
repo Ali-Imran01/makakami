@@ -1,0 +1,31 @@
+/* MakaKami design tokens — Tailwind v4 (@theme). Import in src/index.css after @import "tailwindcss"; */
+/* Font is loaded from index.html instead (a CSS @import here would land mid-file after bundling). */
+@theme {
+  --color-ground: #F6F5F1;
+  --color-surface: #FFFFFF;
+  --color-ink: #0E1420;
+  --color-muted: #5B6474;
+  --color-line: #E3E1DA;
+  --color-navy: #0B2E6B;
+  --color-yellow: #F5C400;
+  --color-red: #C8102E;
+  --color-verified: #14804A;
+  --color-verified-soft: #E3F1E8;
+  --color-verified-ink: #0F6B3D;
+  --color-unknown: #A15C00;
+  --color-unknown-soft: #FBEFD9;
+  --color-foreign: #4A5160;
+  --color-placeholder: #EEECE6;
+  --color-navy-soft: #EAEFF7;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --text-display: 32px; --text-display--line-height: 38px; --text-display--font-weight: 800;
+  --text-title: 22px;   --text-title--line-height: 28px;   --text-title--font-weight: 700;
+  --text-heading: 17px; --text-heading--line-height: 24px; --text-heading--font-weight: 700;
+  --text-body: 15px;    --text-body--line-height: 22px;
+  --text-label: 13px;   --text-label--line-height: 18px;   --text-label--font-weight: 600;
+  --text-caption: 12px; --text-caption--line-height: 16px; --text-caption--font-weight: 500;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+}
+body { @apply bg-ground text-ink font-sans; }

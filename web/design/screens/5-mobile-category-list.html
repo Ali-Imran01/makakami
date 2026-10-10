@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>MakaKami — Makanan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0B2E6B}a:hover{color:#0E1420}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 1000px; background: #F6F5F1; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #0E1420">
+
+<header style="display: flex; align-items: center; gap: 12px; padding: 20px 16px 12px">
+<a href="Categories.dc.html" aria-label="Kembali" style="width: 44px; height: 44px; box-sizing: border-box; flex: none; border-radius: 999px; border: 1px solid #E3E1DA; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<div style="flex: 1; display: flex; flex-direction: column">
+<h1 style="margin: 0; font-size: 22px; line-height: 28px; font-weight: 800">Makanan</h1>
+<span style="font-size: 12px; color: #5B6474">[Bilangan] produk Malaysia</span>
+</div>
+<button aria-label="Cari dalam Makanan" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #E3E1DA; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</button>
+</header>
+
+<div style="display: flex; gap: 8px; padding: 0 16px 12px; overflow-x: auto">
+<sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
+<button onClick="{{s.pick}}" style="height: 36px; padding: 0 14px; flex: none; border-radius: 999px; border: 1px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; font-size: 13px; font-weight: 700; white-space: nowrap">{{s.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px 16px">
+<button style="height: 36px; padding: 0 12px; display: flex; align-items: center; gap: 6px; border-radius: 8px; border: 1px solid #E3E1DA; background: #FFFFFF; color: #0E1420; font-size: 13px; font-weight: 600">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Tapis · 2</button>
+<button style="height: 36px; padding: 0 4px; display: flex; align-items: center; gap: 4px; border: 0; background: transparent; color: #0E1420; font-size: 13px; font-weight: 600">Popular
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px">
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #E3F1E8; color: #0F6B3D; font-size: 12px; font-weight: 700">Buatan MY
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F6B3D" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #E3F1E8; color: #0F6B3D; font-size: 12px; font-weight: 700">Mungkin MY
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F6B3D" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 32px">
+<sc-for list="{{ items }}" as="p" hint-placeholder-count="6">
+<a href="Result.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 10px; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px; text-decoration: none; color: #0E1420">
+<span style="height: 120px; border-radius: 8px; background: #EEECE6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5B6474">[Foto]</span>
+<span style="font-size: 14px; line-height: 18px; font-weight: 700">{{p.name}}</span>
+<span style="font-size: 12px; color: #5B6474">[Jenama] · {{p.state}}</span>
+<sc-if value="{{ p.verified }}" hint-placeholder-val="{{ true }}">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; background: #14804A; color: #FFFFFF; font-size: 11px; font-weight: 700">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Buatan MY</span>
+</sc-if>
+<sc-if value="{{ p.likely }}" hint-placeholder-val="{{ false }}">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; border: 1.5px solid #14804A; color: #14804A; font-size: 11px; font-weight: 700">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#14804A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Mungkin MY</span>
+</sc-if>
+</a>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+const picked = (this.state && this.state.sub) || 'Semua';
+const subs = ['Semua', 'Snek', 'Makanan segera', 'Sos & perencah', 'Rempah & pes', 'Beku'].map((label) => {
+const on = label === picked;
+return { label, bg: on ? '#0B2E6B' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0E1420', border: on ? '#0B2E6B' : '#E3E1DA', pick: () => this.setState({ sub: label }) };
+});
+const p = (name, state, v) => ({ name, state, verified: v, likely: !v });
+return { subs, items: [
+p('Kerepek Pisang Pedas', 'Perak', true),
+p('Sambal Bilis Botol', 'Johor', false),
+p('Mi Segera Kari', 'Selangor', true),
+p('Kicap Manis', 'Pulau Pinang', true),
+p('Rempah Kari Daging', 'Kelantan', false),
+p('Keropok Lekor Beku', 'Terengganu', true)
+] };
+}
+}
+</script>
+</body>
+</html>

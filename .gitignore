@@ -1,0 +1,4 @@
+# Local environment files can hold secrets; only the .example templates are committed.
+.env
+.env.*
+!.env.example

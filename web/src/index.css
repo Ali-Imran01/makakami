@@ -1,0 +1,4 @@
+/* Tailwind itself (utility classes, reset). */
+@import "tailwindcss";
+/* MakaKami design tokens (colours, type scale, radii) from the design hand-off. */
+@import "../design/theme.css";

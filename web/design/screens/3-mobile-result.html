@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>MakaKami — Keputusan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0B2E6B}a:hover{color:#0E1420}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 1040px; position: relative; background: #F6F5F1; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #0E1420">
+
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 20px 16px 12px">
+<a href="Main.dc.html" aria-label="Kembali" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 999px; border: 1px solid #E3E1DA; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<div style="font-size: 17px; font-weight: 700">Keputusan</div>
+<button aria-label="Kongsi" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #E3E1DA; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"></path><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg>
+</button>
+</header>
+
+<div style="padding: 0 16px 32px; display: flex; flex-direction: column; gap: 16px">
+
+<section style="padding: 24px 20px; border-radius: 16px; background: {{bg}}; display: flex; flex-direction: column; gap: 12px">
+<span style="width: 56px; height: 56px; border-radius: 999px; background: {{discBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{ isPositive }}" hint-placeholder-val="{{ true }}">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="{{discFg}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+</sc-if>
+<sc-if value="{{ isUnknown }}" hint-placeholder-val="{{ false }}">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="{{discFg}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.6V15"></path><path d="M12 19h.01"></path></svg>
+</sc-if>
+<sc-if value="{{ isForeign }}" hint-placeholder-val="{{ false }}">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="{{discFg}}" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M4 12h16"></path></svg>
+</sc-if>
+</span>
+<div style="font-size: 32px; line-height: 36px; font-weight: 800; letter-spacing: -0.01em; color: {{titleFg}}">{{title}}</div>
+<div style="font-size: 14px; line-height: 20px; font-weight: 500; color: {{subFg}}">{{sub}}</div>
+</section>
+
+<section style="display: flex; gap: 14px; padding: 16px; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px">
+<div style="width: 96px; height: 96px; flex: none; border-radius: 16px; background: #EEECE6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5B6474">[Foto produk]</div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<h1 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">Kerepek Pisang Pedas</h1>
+<div style="font-size: 14px; color: #5B6474">[Jenama] · 150 g</div>
+<div style="font-size: 12px; color: #5B6474; letter-spacing: 0.04em">[KOD BAR]</div>
+<span style="align-self: flex-start; margin-top: 4px; padding: 4px 10px; border-radius: 999px; background: #F6F5F1; border: 1px solid #E3E1DA; font-size: 12px; font-weight: 600">Makanan › Snek</span>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">Tahap keyakinan</h2>
+<span style="font-size: 13px; font-weight: 700">{{conf}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px" aria-hidden="true">
+<span style="height: 8px; border-radius: 999px; background: {{seg1}}"></span>
+<span style="height: 8px; border-radius: 999px; background: {{seg2}}"></span>
+<span style="height: 8px; border-radius: 999px; background: {{seg3}}"></span>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px">
+<h2 style="margin: 0; padding: 16px 16px 8px; font-size: 17px; font-weight: 700">Bukti</h2>
+<div style="display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid #E3E1DA">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14804A" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M5 12l5 5 9-10"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Label: "Dibuat di Malaysia"</span><span style="font-size: 12px; color: #5B6474">Foto label disemak oleh admin</span></div>
+</div>
+<div style="display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid #E3E1DA">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14804A" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M5 12l5 5 9-10"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Pengilang: [Nama kilang]</span><span style="font-size: 12px; color: #5B6474">Perak, Malaysia</span></div>
+</div>
+<div style="display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid #E3E1DA">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14804A" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M5 12l5 5 9-10"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Kod bar bermula 955</span><span style="font-size: 12px; color: #5B6474">Jenama berdaftar dengan GS1 Malaysia</span></div>
+</div>
+<div style="display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid #E3E1DA">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B6474" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Halal: [Status halal]</span><a href="#" style="font-size: 12px; font-weight: 700">Semak di portal JAKIM</a></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700">{{altTitle}}</h2>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<a href="#" style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px; text-decoration: none; color: #0E1420">
+<span style="height: 96px; border-radius: 8px; background: #EEECE6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5B6474">[Foto]</span>
+<span style="font-size: 14px; font-weight: 700">Kerepek Ubi Pedas</span>
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; background: #14804A; color: #FFFFFF; font-size: 11px; font-weight: 700">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Buatan MY</span>
+</a>
+<a href="#" style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: #FFFFFF; border: 1px solid #E3E1DA; border-radius: 16px; text-decoration: none; color: #0E1420">
+<span style="height: 96px; border-radius: 8px; background: #EEECE6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5B6474">[Foto]</span>
+<span style="font-size: 14px; font-weight: 700">Kerepek Pisang Manis</span>
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; background: #14804A; color: #FFFFFF; font-size: 11px; font-weight: 700">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Buatan MY</span>
+</a>
+</div>
+</section>
+
+<div style="display: flex; gap: 12px">
+<button style="flex: 1; height: 48px; border-radius: 999px; border: 1px solid #E3E1DA; background: #FFFFFF; color: #0E1420; font-size: 14px; font-weight: 700">Laporkan salah</button>
+<button style="flex: 1; height: 48px; border-radius: 999px; border: 0; background: #0B2E6B; color: #FFFFFF; font-size: 14px; font-weight: 700">{{cta}}</button>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"status":{"editor":"enum","options":["verified","likely","unknown","foreign"],"default":"verified"},"$preview":{"width":390,"height":1040}}'>
+class Component extends DCLogic {
+renderVals() {
+const s = this.props.status ?? 'verified';
+const on = '#14804A', off = '#E3E1DA';
+const map = {
+verified: { bg: '#14804A', discBg: '#FFFFFF', discFg: '#14804A', titleFg: '#FFFFFF', subFg: '#E3F2E9', title: 'Buatan Malaysia', sub: 'Disahkan admin berdasarkan foto label', conf: 'Tinggi', n: 3, cta: 'Imbas lagi', altTitle: 'Produk Malaysia serupa' },
+likely: { bg: '#E3F1E8', discBg: '#14804A', discFg: '#FFFFFF', titleFg: '#0F6B3D', subFg: '#0E1420', title: 'Mungkin buatan Malaysia', sub: 'Berdasarkan data terbuka dan undian pengguna. Belum disahkan admin.', conf: 'Sederhana', n: 2, cta: 'Bantu sahkan', altTitle: 'Produk Malaysia serupa' },
+unknown: { bg: '#FBEFD9', discBg: '#A15C00', discFg: '#FFFFFF', titleFg: '#7F4800', subFg: '#0E1420', title: 'Belum disahkan', sub: 'Kami belum ada maklumat asal produk ini. Ambil foto label untuk bantu.', conf: 'Rendah', n: 1, cta: 'Ambil foto label', altTitle: 'Pilihan Malaysia dalam kategori ini' },
+foreign: { bg: '#4A5160', discBg: '#FFFFFF', discFg: '#4A5160', titleFg: '#FFFFFF', subFg: '#E6E8EC', title: 'Bukan produk Malaysia', sub: 'Mahu sokong produk tempatan? Cuba alternatif di bawah.', conf: 'Tinggi', n: 3, cta: 'Lihat alternatif', altTitle: 'Alternatif buatan Malaysia' }
+};
+const m = map[s] || map.verified;
+const segOn = s === 'unknown' ? '#A15C00' : s === 'foreign' ? '#4A5160' : on;
+return { ...m, isPositive: s === 'verified' || s === 'likely', isUnknown: s === 'unknown', isForeign: s === 'foreign',
+seg1: m.n >= 1 ? segOn : off, seg2: m.n >= 2 ? segOn : off, seg3: m.n >= 3 ? segOn : off };
+}
+}
+</script>
+</body>
+</html>
