@@ -9,12 +9,14 @@ import { useTranslation } from 'react-i18next'
 // Router helpers: params from the URL, links, navigation, and the current location.
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 // API call and the error type that carries the HTTP status.
-import { ApiError, fetchProduct, logScan } from '../api'
+import { ApiError, logScan } from '../api'
 import AlternativeCard from '../components/AlternativeCard'
 import ConfidenceBar from '../components/ConfidenceBar'
 import EvidenceRow from '../components/EvidenceRow'
 import { VARIANT, type Variant } from '../status'
 import VerdictHero from '../components/VerdictHero'
+// Loads a product and keeps a copy on the device, so recently viewed products still open without a connection.
+import { fetchProductWithCache } from '../offlineCache'
 // Remember the product in the recent-scans list once we know its name and status.
 import { addRecentScan } from '../recentScans'
 
@@ -42,7 +44,7 @@ export default function Result() {
   // Load the product; don't retry a 404 because "not found" is a real answer, not a glitch.
   const { data: product, error, isPending } = useQuery({
     queryKey: ['product', barcode],
-    queryFn: () => fetchProduct(barcode),
+    queryFn: () => fetchProductWithCache(barcode),
     retry: (count, err) => !(err instanceof ApiError && err.status === 404) && count < 2,
   })
 
@@ -170,6 +172,13 @@ export default function Result() {
   return wrap(
     // Content area: 16px sides, 16px between blocks.
     <div className="flex flex-col gap-4 px-4 pb-8">
+      {/* Shown when the server could not be reached and this is the copy saved on the device (it may be out of date). */}
+      {product.cachedAt && (
+        <p role="status" className="rounded-md border border-line bg-unknown-soft p-3 text-label font-normal text-ink">
+          {t('result.offlineNote', { date: new Date(product.cachedAt).toLocaleString(ms ? 'ms-MY' : 'en-MY', { dateStyle: 'medium', timeStyle: 'short' }) })}
+        </p>
+      )}
+
       {/* Big verdict card. */}
       <VerdictHero status={product.origin_status} />
 

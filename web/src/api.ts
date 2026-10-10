@@ -86,9 +86,10 @@ export interface ProductDetail extends Product {
 }
 
 // Small helper: GET a path from the API and return parsed JSON, or throw on a bad status.
-async function getJson<T>(path: string): Promise<T> {
-  // Ask for JSON so Laravel returns JSON errors instead of HTML pages.
-  const res = await fetch(`${API_URL}${path}`, { headers: { Accept: 'application/json' } })
+async function getJson<T>(path: string, timeoutMs = 10_000): Promise<T> {
+  // Ask for JSON so Laravel returns JSON errors instead of HTML pages. Give up after the time limit so a very weak
+  // connection fails (and the offline cache can step in) instead of leaving the page loading forever.
+  const res = await fetch(`${API_URL}${path}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(timeoutMs) })
   // fetch() only rejects on network errors, so check the HTTP status ourselves.
   if (!res.ok) throw new ApiError(res.status)
   // Parse and return the JSON body.
@@ -155,7 +156,8 @@ export async function logScan(barcode: string): Promise<void> {
 }
 
 // Load one product by barcode; rejects with ApiError(404) when we don't have it.
-export const fetchProduct = (barcode: string) => getJson<ProductDetail>(`/products/${encodeURIComponent(barcode)}`)
+// (Given longer than other calls: for a barcode we don't have yet, the server may need a few seconds to ask Open Food Facts.)
+export const fetchProduct = (barcode: string) => getJson<ProductDetail>(`/products/${encodeURIComponent(barcode)}`, 25_000)
 
 // Load one category with its subcategories, states and counts.
 export const fetchCategory = (slug: string) => getJson<CategoryDetail>(`/categories/${encodeURIComponent(slug)}`)

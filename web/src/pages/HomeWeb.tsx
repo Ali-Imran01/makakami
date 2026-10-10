@@ -181,7 +181,7 @@ export default function HomeWeb() {
       </section>
 
       {/* ===== What each badge means ===== */}
-      <section className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 py-10">
+      <section className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 pt-10 pb-16">
         <h2 className={H2}>{t('web.legendTitle')}</h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
           {/* One card per status; the badge is the shared StatusBadge, so it always matches the rest of the site. */}
@@ -193,26 +193,6 @@ export default function HomeWeb() {
               <span className="text-[14px] leading-5 font-normal text-muted">{t(`web.legend.${s}`)}</span>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ===== Call to action band ===== */}
-      <section className="mx-auto max-w-[1200px] px-6 pt-6 pb-16">
-        <div className="flex flex-wrap items-center justify-between gap-5 rounded-md bg-navy p-9 text-white">
-          {/* Text. */}
-          <div className="flex max-w-[560px] flex-col gap-2">
-            <h2 className={H2}>{t('web.ctaTitle')}</h2>
-            <p className="text-[16px] leading-6 font-normal text-navy-soft">{t('web.ctaBody')}</p>
-          </div>
-          {/* Buttons. Adding products needs accounts (Phase 3) and the APK is not built yet, so both are shown but disabled. */}
-          <div className="flex flex-wrap gap-3">
-            <button type="button" disabled title={t('comingSoon')} className="flex h-12 items-center rounded-pill bg-yellow px-[22px] text-[15px] font-extrabold text-navy opacity-60">
-              {t('web.addProduct')}
-            </button>
-            <button type="button" disabled title={t('comingSoon')} className="flex h-12 items-center rounded-pill border-[1.5px] border-white px-[22px] text-[15px] font-bold text-white opacity-60">
-              {t('nav.downloadApk')}
-            </button>
-          </div>
         </div>
       </section>
 
