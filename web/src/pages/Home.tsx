@@ -12,6 +12,7 @@ import LangToggle from '../components/LangToggle'
 import LegalLinks from '../components/LegalLinks'
 import ProductCard from '../components/ProductCard'
 import ScanButton from '../components/ScanButton'
+import HomeWeb from './HomeWeb'
 import SearchInput from '../components/SearchInput'
 
 // The four categories shown on Home, in design order (slugs come from the category seeder).
@@ -30,8 +31,13 @@ export default function Home() {
   const tiles = HOME_SLUGS.map((slug) => categories.data?.find((c) => c.slug === slug)).filter((c) => c !== undefined)
 
   return (
-    // Page padding: 16px sides, 20px top, 120px bottom so content clears the tab bar; 24px gap between sections.
-    <div className="mx-auto flex max-w-xl flex-col gap-6 px-4 pt-5 pb-[120px] lg:pb-10">
+    <>
+      {/* Wide screens (lg and up) get the full website page instead of the phone layout below. */}
+      <div className="hidden lg:block">
+        <HomeWeb />
+      </div>
+      {/* Phone layout, hidden from the lg breakpoint up. Page padding: 16px sides, 20px top, 120px bottom so content clears the tab bar; 24px gap between sections. */}
+      <div className="mx-auto flex max-w-xl flex-col gap-6 px-4 pt-5 pb-[120px] lg:hidden">
       {/* Phone header: wordmark and language switch. Hidden on lg+, where TopNav already has both. */}
       <header className="flex h-11 items-center justify-between lg:hidden">
         {/* Wordmark. */}
@@ -97,6 +103,7 @@ export default function Home() {
 
       {/* Links to the Terms and Privacy Policy, and the open-data credit. */}
       <LegalLinks />
-    </div>
+      </div>
+    </>
   )
 }

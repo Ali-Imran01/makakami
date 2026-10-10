@@ -2,8 +2,8 @@
 import { Download } from 'lucide-react'
 // Hook for translated labels.
 import { useTranslation } from 'react-i18next'
-// Router link.
-import { Link } from 'react-router-dom'
+// Router links (NavLink knows whether it points at the current page).
+import { Link, NavLink } from 'react-router-dom'
 // Shared pieces.
 import LangToggle from './LangToggle'
 import SearchInput from './SearchInput'
@@ -24,10 +24,12 @@ export default function TopNav() {
         </Link>
         {/* Main links. */}
         <nav aria-label={t('nav.label')} className="flex flex-wrap gap-5 text-[14px] font-semibold text-ink">
-          {/* Category browser. */}
-          <Link to="/kategori">{t('nav.categories')}</Link>
-          {/* Anchor to the "how it works" section (added with the web home screen). */}
-          <a href="#cara">{t('nav.howItWorks')}</a>
+          {/* Category browser; navy and extra bold while on a category page (as in the design). */}
+          <NavLink to="/kategori" className={({ isActive }) => (isActive ? 'font-extrabold text-navy' : '')}>
+            {t('nav.categories')}
+          </NavLink>
+          {/* Jumps to the "how it works" section of the home page, from any page. */}
+          <Link to={{ pathname: '/', hash: '#cara' }}>{t('nav.howItWorks')}</Link>
           {/* About page (not built yet). */}
           <Link to="/tentang">{t('nav.about')}</Link>
         </nav>

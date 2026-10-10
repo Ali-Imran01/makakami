@@ -1,15 +1,10 @@
-// ZXing's browser reader: opens the camera and decodes barcodes from the video.
-import { BrowserMultiFormatReader } from '@zxing/browser'
-// Barcode type names and the "hints" option keys from ZXing's core library.
-import { BarcodeFormat, DecodeHintType } from '@zxing/library'
+// Shared reader setup (limited to retail product barcode formats).
+import { createReader } from './barcodeReader'
 // React hooks for lifecycle, refs and state.
 import { useEffect, useRef, useState } from 'react'
 
 // Camera lifecycle: starting up, working, user said no, or this browser can't do it.
 export type CameraStatus = 'starting' | 'ready' | 'denied' | 'unsupported'
-
-// Only look for retail product barcodes; ignoring QR codes etc. makes scanning faster and more reliable.
-const FORMATS = [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8, BarcodeFormat.UPC_A, BarcodeFormat.UPC_E]
 
 // True when this page can use the camera API (it's missing on insecure http pages and very old browsers).
 const hasCamera = () => typeof navigator.mediaDevices?.getUserMedia === 'function'
@@ -50,7 +45,7 @@ export function useBarcodeScanner(onDetect: (code: string) => void) {
     // The stop function only exists once the camera has started; this variable carries it to the cleanup below.
     let stopRef: (() => void) | undefined
     // Reader limited to product barcode formats.
-    const reader = new BrowserMultiFormatReader(new Map([[DecodeHintType.POSSIBLE_FORMATS, FORMATS]]))
+    const reader = createReader()
 
     // Open the camera (no deviceId = browser prefers the rear camera) and decode continuously.
     const starting = reader.decodeFromVideoDevice(undefined, video, (result) => {
