@@ -9,15 +9,16 @@ namespace App\Services;
 class OriginClassifier
 {
     // Decide the status from a barcode and the "where is it made" text/tags (either may be empty).
-    public static function classify(string $barcode, ?string $manufacturingPlaces, array $manufacturingTags = []): string
+    public static function classify(string $barcode, ?string $manufacturingPlaces, array $manufacturingTags = [], bool $knownMalaysianBrand = false): string
     {
         // Does the data say it is made in Malaysia? (OFF tags look like "en:malaysia".)
         $madeInMalaysia = in_array('en:malaysia', $manufacturingTags, true)
             // Fall back to searching the free text for the word "Malaysia" (case-insensitive).
             || preg_match('/\bmalaysia\b/i', (string) $manufacturingPlaces) === 1;
 
-        // Barcode prefix 955 = brand owner registered with GS1 Malaysia (says nothing about where it is made).
-        $malaysianBrand = str_starts_with($barcode, '955');
+        // A Malaysian brand: barcode prefix 955 (brand owner registered with GS1 Malaysia) or a brand on our list of Malaysian-owned brands.
+        // Neither says anything about where the product is made.
+        $malaysianBrand = str_starts_with($barcode, '955') || $knownMalaysianBrand;
 
         // Made in Malaysia according to open data: "likely Malaysian".
         if ($madeInMalaysia) {

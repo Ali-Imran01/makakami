@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(CategorySeeder::class);
+        // Believed-Malaysian brands (unverified leads; see the seeder's comment).
+        $this->call(MalaysianBrandSeeder::class);
     }
 }

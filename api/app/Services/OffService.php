@@ -113,7 +113,7 @@ class OffService
             'name' => mb_substr($name, 0, 255),
             'brand_id' => $brand?->id,
             'category_id' => $this->mapCategory($p['categories_tags'] ?? []),
-            'origin_status' => OriginClassifier::classify($barcode, $places, is_array($placeTags) ? $placeTags : []),
+            'origin_status' => OriginClassifier::classify($barcode, $places, is_array($placeTags) ? $placeTags : [], $brand?->owner_country === 'MY'),
             'image_url' => $p['image_front_small_url'] ?? $p['image_front_url'] ?? null,
             'quantity' => isset($p['quantity']) ? mb_substr(trim((string) $p['quantity']), 0, 64) ?: null : null,
             'manufacturing_places' => $places ? mb_substr($places, 0, 255) : null,
@@ -146,7 +146,7 @@ class OffService
 
         // Only automatic statuses may be recalculated.
         if (in_array($product->origin_status, ['unknown', 'my_brand_unknown_origin', 'my_brand_overseas', 'likely_my'], true)) {
-            $product->origin_status = OriginClassifier::classify($product->barcode, $product->manufacturing_places, $placeTags);
+            $product->origin_status = OriginClassifier::classify($product->barcode, $product->manufacturing_places, $placeTags, $product->brand?->owner_country === 'MY');
         }
 
         // Write only if something changed.

@@ -104,7 +104,7 @@ class ProductEditor
 
         if ($creating) {
             // New products default to the cautious classifier result (e.g. a 955 barcode = "Malaysian brand, origin unconfirmed").
-            $values += ['barcode' => $barcode, 'source' => $source, 'origin_status' => $values['origin_status'] ?? OriginClassifier::classify($barcode, null)];
+            $values += ['barcode' => $barcode, 'source' => $source, 'origin_status' => $values['origin_status'] ?? OriginClassifier::classify($barcode, null, [], $brand?->owner_country === 'MY')];
             $product = Product::create($values);
         } else {
             $product->update($values);

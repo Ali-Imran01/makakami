@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
 // Allow these columns to be filled in bulk (seeders, create()).
-#[Fillable(['name', 'slug', 'ssm_no', 'owner_country', 'verified'])]
+#[Fillable(['name', 'slug', 'ssm_no', 'owner_country', 'owner_source', 'verified'])]
 // A Brand is one row in the `brands` table.
 class Brand extends Model
 {
