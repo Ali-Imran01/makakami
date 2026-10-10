@@ -85,8 +85,8 @@ class OffService
         return is_array($product) ? $product : null;
     }
 
-    // Convert OFF's fields to ours and save the product (and its brand).
-    private function store(string $barcode, string $source, string $host, array $p): ?Product
+    // Convert OFF's fields to ours and save the product (and its brand). Public so the bulk importer can reuse it.
+    public function store(string $barcode, string $source, string $host, array $p): ?Product
     {
         // Prefer a Malay name, then English, then the default; first non-empty wins.
         $name = collect([$p['product_name_ms'] ?? null, $p['product_name_en'] ?? null, $p['product_name'] ?? null, $p['generic_name'] ?? null])
@@ -98,8 +98,9 @@ class OffService
             return null;
         }
 
-        // OFF "brands" is a comma-separated list; take the first.
-        $brandName = trim(explode(',', (string) ($p['brands'] ?? ''))[0]);
+        // OFF "brands" is a comma-separated string in the product API and a list in the search API; take the first brand either way.
+        $brands = $p['brands'] ?? '';
+        $brandName = trim(is_array($brands) ? (string) ($brands[0] ?? '') : explode(',', (string) $brands)[0]);
         // Create the brand if new (matched by slug), or leave it empty when OFF has none.
         $brand = $brandName !== '' ? Brand::firstOrCreate(['slug' => Str::slug($brandName) ?: Str::random(8)], ['name' => $brandName]) : null;
 
@@ -120,6 +121,36 @@ class OffService
             // Link back to the page on OFF (required for attribution under the ODbL licence).
             'source_url' => "{$host}/product/{$barcode}",
         ]);
+    }
+
+    // Fetch the full details of one barcode from Open Food Facts (null if unknown). Throws if OFF cannot be reached.
+    public function detail(string $barcode): ?array
+    {
+        // Only the main food database is asked: the bulk importer uses it for products it found there.
+        return $this->fetch(self::SOURCES['off'], $barcode);
+    }
+
+    // Fill in what the search results lack (where it is made, pack size) and re-run the origin classifier.
+    // Statuses that an admin or the community may have set (verified, foreign...) are never touched.
+    public function applyDetail(Product $product, array $detail): void
+    {
+        // Where it is made, as text and as tags.
+        $places = trim((string) ($detail['manufacturing_places'] ?? '')) ?: null;
+        $placeTags = is_array($detail['manufacturing_places_tags'] ?? null) ? $detail['manufacturing_places_tags'] : [];
+        // Pack size, used only if we don't have one yet.
+        $quantity = trim((string) ($detail['quantity'] ?? ''));
+
+        // Keep existing values when OFF has nothing new.
+        $product->manufacturing_places = $places ? mb_substr($places, 0, 255) : $product->manufacturing_places;
+        $product->quantity = $product->quantity ?: ($quantity !== '' ? mb_substr($quantity, 0, 64) : null);
+
+        // Only automatic statuses may be recalculated.
+        if (in_array($product->origin_status, ['unknown', 'my_brand_unknown_origin', 'my_brand_overseas', 'likely_my'], true)) {
+            $product->origin_status = OriginClassifier::classify($product->barcode, $product->manufacturing_places, $placeTags);
+        }
+
+        // Write only if something changed.
+        $product->save();
     }
 
     // Pick our most specific category whose off_tag appears in the product's OFF category tags.
