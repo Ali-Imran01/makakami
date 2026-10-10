@@ -1,7 +1,7 @@
 // Icons: close (X) and torch (flashlight).
 import { Flashlight, X } from 'lucide-react'
 // React state hook.
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
 import { usePageMeta } from '../usePageMeta'
@@ -13,6 +13,9 @@ import StatusBadge from '../components/StatusBadge'
 import { addRecentScan, getRecentScans } from '../recentScans'
 // Camera + barcode decoding.
 import { useBarcodeScanner } from '../useBarcodeScanner'
+
+// Showcase only (replaced at build time, so a normal build drops it): quick buttons for the dummy products.
+const DemoSamples = import.meta.env.VITE_DEMO === 'true' ? lazy(() => import('../demo/DemoSamples')) : null
 
 // Product barcodes (EAN-8 up to GTIN-14) are 8 to 14 digits.
 const BARCODE_PATTERN = /^\d{8,14}$/
@@ -158,6 +161,13 @@ export default function Scan() {
             </p>
           )}
         </form>
+
+        {/* Showcase only: pick a dummy product to "scan". */}
+        {DemoSamples && (
+          <Suspense fallback={null}>
+            <DemoSamples onPick={openProduct} />
+          </Suspense>
+        )}
 
         {/* Recent scans. */}
         <div className="flex flex-col gap-2">

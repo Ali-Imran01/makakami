@@ -1,0 +1,498 @@
+[
+    {
+        "id": 1,
+        "parent_id": null,
+        "name_ms": "Makanan",
+        "name_en": "Food",
+        "slug": "food",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 2,
+                "parent_id": 1,
+                "name_ms": "Snek",
+                "name_en": "Snacks",
+                "slug": "food-snacks",
+                "coming_soon": false
+            },
+            {
+                "id": 3,
+                "parent_id": 1,
+                "name_ms": "Makanan segera",
+                "name_en": "Instant food",
+                "slug": "food-instant-food",
+                "coming_soon": false
+            },
+            {
+                "id": 4,
+                "parent_id": 1,
+                "name_ms": "Roti & kek",
+                "name_en": "Bakery",
+                "slug": "food-bakery",
+                "coming_soon": false
+            },
+            {
+                "id": 5,
+                "parent_id": 1,
+                "name_ms": "Sos & perencah",
+                "name_en": "Sauces & condiments",
+                "slug": "food-sauces-condiments",
+                "coming_soon": false
+            },
+            {
+                "id": 6,
+                "parent_id": 1,
+                "name_ms": "Rempah & pes",
+                "name_en": "Spices & paste",
+                "slug": "food-spices-paste",
+                "coming_soon": false
+            },
+            {
+                "id": 7,
+                "parent_id": 1,
+                "name_ms": "Beku",
+                "name_en": "Frozen",
+                "slug": "food-frozen",
+                "coming_soon": false
+            },
+            {
+                "id": 8,
+                "parent_id": 1,
+                "name_ms": "Tin",
+                "name_en": "Canned",
+                "slug": "food-canned",
+                "coming_soon": false
+            },
+            {
+                "id": 9,
+                "parent_id": 1,
+                "name_ms": "Beras & mi",
+                "name_en": "Rice & noodles",
+                "slug": "food-rice-noodles",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "parent_id": null,
+        "name_ms": "Minuman",
+        "name_en": "Beverages",
+        "slug": "beverages",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 11,
+                "parent_id": 10,
+                "name_ms": "Kopi & teh",
+                "name_en": "Coffee & tea",
+                "slug": "beverages-coffee-tea",
+                "coming_soon": false
+            },
+            {
+                "id": 12,
+                "parent_id": 10,
+                "name_ms": "Jus",
+                "name_en": "Juice",
+                "slug": "beverages-juice",
+                "coming_soon": false
+            },
+            {
+                "id": 13,
+                "parent_id": 10,
+                "name_ms": "Berkarbonat",
+                "name_en": "Carbonated",
+                "slug": "beverages-carbonated",
+                "coming_soon": false
+            },
+            {
+                "id": 14,
+                "parent_id": 10,
+                "name_ms": "Malt \/ 3-dalam-1",
+                "name_en": "Malt\/3-in-1",
+                "slug": "beverages-malt3-in-1",
+                "coming_soon": false
+            },
+            {
+                "id": 15,
+                "parent_id": 10,
+                "name_ms": "Air mineral",
+                "name_en": "Bottled water",
+                "slug": "beverages-bottled-water",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "parent_id": null,
+        "name_ms": "Tenusu & Telur",
+        "name_en": "Dairy & Eggs",
+        "slug": "dairy-eggs",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 17,
+                "parent_id": 16,
+                "name_ms": "Susu",
+                "name_en": "Milk",
+                "slug": "dairy-eggs-milk",
+                "coming_soon": false
+            },
+            {
+                "id": 18,
+                "parent_id": 16,
+                "name_ms": "Yogurt",
+                "name_en": "Yogurt",
+                "slug": "dairy-eggs-yogurt",
+                "coming_soon": false
+            },
+            {
+                "id": 19,
+                "parent_id": 16,
+                "name_ms": "Keju",
+                "name_en": "Cheese",
+                "slug": "dairy-eggs-cheese",
+                "coming_soon": false
+            },
+            {
+                "id": 20,
+                "parent_id": 16,
+                "name_ms": "Telur",
+                "name_en": "Eggs",
+                "slug": "dairy-eggs-eggs",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "parent_id": null,
+        "name_ms": "Konfeksi",
+        "name_en": "Confectionery",
+        "slug": "confectionery",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 22,
+                "parent_id": 21,
+                "name_ms": "Coklat",
+                "name_en": "Chocolate",
+                "slug": "confectionery-chocolate",
+                "coming_soon": false
+            },
+            {
+                "id": 23,
+                "parent_id": 21,
+                "name_ms": "Gula-gula",
+                "name_en": "Candy",
+                "slug": "confectionery-candy",
+                "coming_soon": false
+            },
+            {
+                "id": 24,
+                "parent_id": 21,
+                "name_ms": "Biskut",
+                "name_en": "Biscuits",
+                "slug": "confectionery-biscuits",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "parent_id": null,
+        "name_ms": "Penjagaan Diri",
+        "name_en": "Personal Care",
+        "slug": "personal-care",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 26,
+                "parent_id": 25,
+                "name_ms": "Penjagaan kulit",
+                "name_en": "Skincare",
+                "slug": "personal-care-skincare",
+                "coming_soon": false
+            },
+            {
+                "id": 27,
+                "parent_id": 25,
+                "name_ms": "Penjagaan rambut",
+                "name_en": "Haircare",
+                "slug": "personal-care-haircare",
+                "coming_soon": false
+            },
+            {
+                "id": 28,
+                "parent_id": 25,
+                "name_ms": "Badan",
+                "name_en": "Body",
+                "slug": "personal-care-body",
+                "coming_soon": false
+            },
+            {
+                "id": 29,
+                "parent_id": 25,
+                "name_ms": "Penjagaan mulut",
+                "name_en": "Oral care",
+                "slug": "personal-care-oral-care",
+                "coming_soon": false
+            },
+            {
+                "id": 30,
+                "parent_id": 25,
+                "name_ms": "Minyak wangi",
+                "name_en": "Fragrance",
+                "slug": "personal-care-fragrance",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "parent_id": null,
+        "name_ms": "Kosmetik",
+        "name_en": "Cosmetics",
+        "slug": "cosmetics",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 32,
+                "parent_id": 31,
+                "name_ms": "Solekan",
+                "name_en": "Makeup",
+                "slug": "cosmetics-makeup",
+                "coming_soon": false
+            },
+            {
+                "id": 33,
+                "parent_id": 31,
+                "name_ms": "Kuku",
+                "name_en": "Nails",
+                "slug": "cosmetics-nails",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "parent_id": null,
+        "name_ms": "Kesihatan",
+        "name_en": "Health",
+        "slug": "health",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 35,
+                "parent_id": 34,
+                "name_ms": "Suplemen",
+                "name_en": "Supplements",
+                "slug": "health-supplements",
+                "coming_soon": false
+            },
+            {
+                "id": 36,
+                "parent_id": 34,
+                "name_ms": "Herba (jamu)",
+                "name_en": "Herbal (jamu)",
+                "slug": "health-herbal-jamu",
+                "coming_soon": false
+            },
+            {
+                "id": 37,
+                "parent_id": 34,
+                "name_ms": "Ubat OTC",
+                "name_en": "OTC",
+                "slug": "health-otc",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "parent_id": null,
+        "name_ms": "Rumah",
+        "name_en": "Household",
+        "slug": "household",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 39,
+                "parent_id": 38,
+                "name_ms": "Pembersih",
+                "name_en": "Cleaning",
+                "slug": "household-cleaning",
+                "coming_soon": false
+            },
+            {
+                "id": 40,
+                "parent_id": 38,
+                "name_ms": "Dobi",
+                "name_en": "Laundry",
+                "slug": "household-laundry",
+                "coming_soon": false
+            },
+            {
+                "id": 41,
+                "parent_id": 38,
+                "name_ms": "Peralatan dapur",
+                "name_en": "Kitchenware",
+                "slug": "household-kitchenware",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "parent_id": null,
+        "name_ms": "Bayi & Kanak-kanak",
+        "name_en": "Baby & Kids",
+        "slug": "baby-kids",
+        "coming_soon": false,
+        "children": [
+            {
+                "id": 43,
+                "parent_id": 42,
+                "name_ms": "Susu formula",
+                "name_en": "Formula",
+                "slug": "baby-kids-formula",
+                "coming_soon": false
+            },
+            {
+                "id": 44,
+                "parent_id": 42,
+                "name_ms": "Lampin",
+                "name_en": "Diapers",
+                "slug": "baby-kids-diapers",
+                "coming_soon": false
+            },
+            {
+                "id": 45,
+                "parent_id": 42,
+                "name_ms": "Penjagaan bayi",
+                "name_en": "Baby care",
+                "slug": "baby-kids-baby-care",
+                "coming_soon": false
+            }
+        ]
+    },
+    {
+        "id": 46,
+        "parent_id": null,
+        "name_ms": "Fesyen",
+        "name_en": "Fashion",
+        "slug": "fashion",
+        "coming_soon": true,
+        "children": [
+            {
+                "id": 47,
+                "parent_id": 46,
+                "name_ms": "Pakaian",
+                "name_en": "Clothing",
+                "slug": "fashion-clothing",
+                "coming_soon": true
+            },
+            {
+                "id": 48,
+                "parent_id": 46,
+                "name_ms": "Batik & songket",
+                "name_en": "Batik & songket",
+                "slug": "fashion-batik-songket",
+                "coming_soon": true
+            },
+            {
+                "id": 49,
+                "parent_id": 46,
+                "name_ms": "Kasut",
+                "name_en": "Shoes",
+                "slug": "fashion-shoes",
+                "coming_soon": true
+            },
+            {
+                "id": 50,
+                "parent_id": 46,
+                "name_ms": "Beg",
+                "name_en": "Bags",
+                "slug": "fashion-bags",
+                "coming_soon": true
+            }
+        ]
+    },
+    {
+        "id": 51,
+        "parent_id": null,
+        "name_ms": "Elektronik & Automotif",
+        "name_en": "Electronics & Automotive",
+        "slug": "electronics-automotive",
+        "coming_soon": true,
+        "children": [
+            {
+                "id": 52,
+                "parent_id": 51,
+                "name_ms": "Perkakas",
+                "name_en": "Appliances",
+                "slug": "electronics-automotive-appliances",
+                "coming_soon": true
+            },
+            {
+                "id": 53,
+                "parent_id": 51,
+                "name_ms": "Gajet",
+                "name_en": "Gadgets",
+                "slug": "electronics-automotive-gadgets",
+                "coming_soon": true
+            },
+            {
+                "id": 54,
+                "parent_id": 51,
+                "name_ms": "Alat ganti kereta",
+                "name_en": "Car parts",
+                "slug": "electronics-automotive-car-parts",
+                "coming_soon": true
+            }
+        ]
+    },
+    {
+        "id": 55,
+        "parent_id": null,
+        "name_ms": "Kraf & Lain-lain",
+        "name_en": "Crafts & Others",
+        "slug": "crafts-others",
+        "coming_soon": true,
+        "children": [
+            {
+                "id": 56,
+                "parent_id": 55,
+                "name_ms": "Kraftangan",
+                "name_en": "Handicraft",
+                "slug": "crafts-others-handicraft",
+                "coming_soon": true
+            },
+            {
+                "id": 57,
+                "parent_id": 55,
+                "name_ms": "Piuter",
+                "name_en": "Pewter",
+                "slug": "crafts-others-pewter",
+                "coming_soon": true
+            },
+            {
+                "id": 58,
+                "parent_id": 55,
+                "name_ms": "Cenderamata",
+                "name_en": "Souvenirs",
+                "slug": "crafts-others-souvenirs",
+                "coming_soon": true
+            },
+            {
+                "id": 59,
+                "parent_id": 55,
+                "name_ms": "Alat tulis",
+                "name_en": "Stationery",
+                "slug": "crafts-others-stationery",
+                "coming_soon": true
+            }
+        ]
+    }
+]

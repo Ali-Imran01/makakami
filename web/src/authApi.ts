@@ -1,8 +1,6 @@
 // Calls to the account endpoints of the API (sign up, log in, who am I, resend email, log out).
 import { ApiError } from './api'
-
-// Base URL of the Laravel API (same setting as api.ts).
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
+import { apiFetch } from './http'
 
 // What the API tells us about a signed-in person (never includes the password or tokens).
 export interface AuthUser {
@@ -37,7 +35,7 @@ export async function request<T>(method: 'GET' | 'POST' | 'PUT', path: string, o
   if (options.token) headers.Authorization = `Bearer ${options.token}`
 
   // Send it; give up after 15 seconds.
-  const res = await fetch(`${API_URL}${path}`, {
+  const res = await apiFetch(path, {
     method,
     headers,
     body: options.body !== undefined ? JSON.stringify(options.body) : undefined,

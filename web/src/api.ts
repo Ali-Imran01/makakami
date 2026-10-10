@@ -1,5 +1,5 @@
-// Base URL of the Laravel API; set in web/.env as VITE_API_URL, with a local fallback.
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
+// Every request goes through apiFetch (a real fetch in a normal build, dummy data in the showcase build).
+import { apiFetch } from './http'
 
 // Shape of one category as returned by GET /api/categories.
 export interface Category {
@@ -96,7 +96,7 @@ export interface ProductDetail extends Product {
 async function getJson<T>(path: string, timeoutMs = 10_000): Promise<T> {
   // Ask for JSON so Laravel returns JSON errors instead of HTML pages. Give up after the time limit so a very weak
   // connection fails (and the offline cache can step in) instead of leaving the page loading forever.
-  const res = await fetch(`${API_URL}${path}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(timeoutMs) })
+  const res = await apiFetch(path, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(timeoutMs) })
   // fetch() only rejects on network errors, so check the HTTP status ourselves.
   if (!res.ok) throw new ApiError(res.status)
   // Parse and return the JSON body.
@@ -153,7 +153,7 @@ export interface ProductQuery {
 // Tell the API that a barcode was scanned (feeds the "most scanned" counter). No personal data is sent.
 export async function logScan(barcode: string): Promise<void> {
   // POST the barcode as JSON; Accept makes Laravel answer with JSON errors.
-  const res = await fetch(`${API_URL}/scans`, {
+  const res = await apiFetch('/scans', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ barcode }),

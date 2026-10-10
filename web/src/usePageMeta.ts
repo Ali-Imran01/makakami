@@ -3,7 +3,9 @@ import { useEffect } from 'react'
 
 // Sets the browser tab title for the current page (screen readers announce a changed title) and, for pages that must not
 // appear in search engines (staff area, account pages), a "noindex" robots tag.
-export function usePageMeta(title: string, noindex = false) {
+export function usePageMeta(title: string, pageNoindex = false) {
+  // The showcase (dummy data) must never be listed by search engines, on any page.
+  const noindex = pageNoindex || import.meta.env.VITE_DEMO === 'true'
   useEffect(() => {
     // "Page · MakaKami", or just "MakaKami" when the page has no title of its own.
     document.title = title ? `${title} · MakaKami` : 'MakaKami'

@@ -26,6 +26,9 @@ import Result from './pages/Result'
 import Search from './pages/Search'
 import Staff from './pages/Staff'
 
+// The showcase banner exists only in the showcase build: the condition is replaced at build time, so a normal build drops it.
+const DemoBanner = import.meta.env.VITE_DEMO === 'true' ? lazy(() => import('./demo/DemoBanner')) : null
+
 // The scan page pulls in the big ZXing library, so it is loaded on demand instead of with the Home page.
 const Scan = lazy(() => import('./pages/Scan'))
 
@@ -36,6 +39,12 @@ export default function App() {
   return (
     // Plain wrapper; the page background comes from the body style in theme.css.
     <div className="min-h-screen">
+      {/* Showcase only: says this is a demo with made-up data. */}
+      {DemoBanner && (
+        <Suspense fallback={null}>
+          <DemoBanner />
+        </Suspense>
+      )}
       {/* First thing a keyboard or screen-reader user reaches: jump past the navigation to the page content. */}
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-pill focus:bg-navy focus:px-4 focus:py-2 focus:text-white">
         {t('a11y.skip')}

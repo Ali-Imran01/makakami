@@ -48,6 +48,12 @@ const resources = {
       },
       // Small shared texts.
       a11y: { skip: 'Langkau ke kandungan' },
+      // Showcase (demo) build only.
+      demo: {
+        banner: 'DEMO: data contoh sahaja.',
+        passwordWarning: 'Jangan guna kata laluan sebenar.',
+        samples: 'Cuba kod bar contoh:',
+      },
       // "Laporkan salah" dialog on the result page.
       report: {
         title: 'Laporkan maklumat yang salah',
@@ -403,6 +409,11 @@ const resources = {
         cameraUnsupported: 'The camera is not available in this browser. Type the barcode below.',
       },
       a11y: { skip: 'Skip to content' },
+      demo: {
+        banner: 'DEMO: sample data only.',
+        passwordWarning: 'Do not use a real password.',
+        samples: 'Try a sample barcode:',
+      },
       report: {
         title: 'Report wrong information',
         type: 'What is wrong?',
