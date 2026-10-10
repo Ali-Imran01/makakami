@@ -1,5 +1,5 @@
 // React hook for form state.
-import { useState, type FormEvent } from 'react'
+import { lazy, Suspense, useState, type FormEvent } from 'react'
 // Hook for translated text.
 import { useTranslation } from 'react-i18next'
 import { usePageMeta } from '../usePageMeta'
@@ -8,6 +8,9 @@ import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react
 import { ApiError } from '../api'
 import { useAuth } from '../authContext'
 import TextField from '../components/TextField'
+
+// The ready-made account box exists only in the showcase build: the condition is replaced at build time, so a normal build drops it.
+const DemoLogin = import.meta.env.VITE_DEMO === 'true' ? lazy(() => import('../demo/DemoLogin')) : null
 
 // Log-in page, route /log-masuk.
 export default function Login() {
@@ -68,6 +71,18 @@ export default function Login() {
         <p role="status" className="rounded-md border border-line bg-verified-soft p-3 text-label font-normal text-verified-ink">
           {t('auth.resetDone')}
         </p>
+      )}
+
+      {/* Showcase only: the ready-made account; choosing it fills in the form. */}
+      {DemoLogin && (
+        <Suspense fallback={null}>
+          <DemoLogin
+            onPick={(e, p) => {
+              setEmail(e)
+              setPassword(p)
+            }}
+          />
+        </Suspense>
       )}
 
       {/* The form; noValidate so we show our own messages. */}

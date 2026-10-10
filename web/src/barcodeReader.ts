@@ -7,4 +7,13 @@ import { BarcodeFormat, DecodeHintType } from '@zxing/library'
 const FORMATS = [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8, BarcodeFormat.UPC_A, BarcodeFormat.UPC_E]
 
 // Create a reader limited to those formats (shared by the live camera scanner and the image upload).
-export const createReader = () => new BrowserMultiFormatReader(new Map([[DecodeHintType.POSSIBLE_FORMATS, FORMATS]]))
+// TRY_HARDER makes ZXing search the picture more thoroughly (slower per frame, far better at small, tilted or blurry barcodes);
+// the short delay between attempts makes up for it by looking at the camera picture about 10 times a second.
+export const createReader = () =>
+  new BrowserMultiFormatReader(
+    new Map<DecodeHintType, unknown>([
+      [DecodeHintType.POSSIBLE_FORMATS, FORMATS],
+      [DecodeHintType.TRY_HARDER, true],
+    ]),
+    { delayBetweenScanAttempts: 100 },
+  )

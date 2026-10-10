@@ -47,8 +47,9 @@ export function useBarcodeScanner(onDetect: (code: string) => void) {
     // Reader limited to product barcode formats.
     const reader = createReader()
 
-    // Open the camera (no deviceId = browser prefers the rear camera) and decode continuously.
-    const starting = reader.decodeFromVideoDevice(undefined, video, (result) => {
+    // Open the rear camera at a high resolution (the browser default is often 640x480, too blurry for thin EAN-13 bars)
+    // and decode continuously.
+    const starting = reader.decodeFromConstraints({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } } }, video, (result) => {
       // Ignore frames with no barcode, and anything after the first hit or after unmounting.
       if (!result || detected || cancelled) return
       // Remember that we found one.
@@ -69,6 +70,9 @@ export function useBarcodeScanner(onDetect: (code: string) => void) {
         }
         // Keep the stop function for cleanup.
         stopRef = controls.stop
+        // Ask the camera to keep refocusing (barcodes are read at close range); phones that can't do it just ignore this.
+        const track = (video.srcObject as MediaStream | null)?.getVideoTracks()[0]
+        track?.applyConstraints({ advanced: [{ focusMode: 'continuous' } as MediaTrackConstraintSet] }).catch(() => {})
         // Keep the torch switch if this camera has one.
         torchRef.current = controls.switchTorch ?? null
         // Show the torch button as usable only if we got a switch.

@@ -4,6 +4,7 @@
 import type { Category, CategoryDetail, Paginated, Product, ProductDetail } from '../api'
 import type { AuthUser } from '../authApi'
 import { CATEGORIES, PRODUCTS, type DemoProduct } from './data'
+import { DEMO_EMAIL } from './account'
 import { load, save } from './store'
 
 // ---------- small helpers ----------
@@ -153,13 +154,17 @@ interface DemoUser {
   email: string
 }
 const USERS = 'demo.users'
+// The ready-made account (see account.ts): always present, never stored in the browser.
+const DEMO_USER: DemoUser = { id: 1, name: 'Demo', email: DEMO_EMAIL }
+// Every account a visitor can log in to: the ready-made one plus the ones they signed up.
+const allUsers = () => [DEMO_USER, ...load<DemoUser>(USERS)]
 const publicUser = (u: DemoUser): AuthUser => ({ id: u.id, name: u.name, email: u.email, role: 'user', email_verified: true })
 
 // Who is making the request? The token is "demo-<id>".
 function currentUser(init: RequestInit): DemoUser | null {
   const auth = new Headers(init.headers).get('Authorization') ?? ''
   const id = Number(auth.replace('Bearer demo-', ''))
-  return load<DemoUser>(USERS).find((u) => u.id === id) ?? null
+  return allUsers().find((u) => u.id === id) ?? null
 }
 
 // ---------- pretend submissions and reports ----------
@@ -214,7 +219,7 @@ export async function handle(path: string, init: RequestInit): Promise<Response>
     const errors: Record<string, string[]> = {}
     if (!str('name')) errors.name = ['The name field is required.']
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(str('email'))) errors.email = ['The email field must be a valid email address.']
-    else if (load<DemoUser>(USERS).some((u) => u.email === str('email').toLowerCase())) errors.email = ['The email has already been taken.']
+    else if (allUsers().some((u) => u.email === str('email').toLowerCase())) errors.email = ['The email has already been taken.']
     if (str('password').length < 10) errors.password = ['The password field must be at least 10 characters.']
     if (body.accept_terms !== true) errors.accept_terms = ['The accept terms field must be accepted.']
     if (Object.keys(errors).length > 0) return invalid(errors)
@@ -224,7 +229,7 @@ export async function handle(path: string, init: RequestInit): Promise<Response>
     return json({ token: `demo-${created.id}`, user: publicUser(created) }, 201)
   }
   if (method === 'POST' && p === '/auth/login') {
-    const found = load<DemoUser>(USERS).find((u) => u.email === str('email').toLowerCase())
+    const found = allUsers().find((u) => u.email === str('email').toLowerCase())
     // Any password works for a registered email in the showcase (passwords are never stored).
     if (!found || !str('password')) return invalid({ email: ['These credentials do not match our records.'] })
     return json({ token: `demo-${found.id}`, user: publicUser(found) })

@@ -53,6 +53,8 @@ const resources = {
         banner: 'DEMO: data contoh sahaja.',
         passwordWarning: 'Jangan guna kata laluan sebenar.',
         samples: 'Cuba kod bar contoh:',
+        accountTitle: 'Akaun demo untuk dicuba',
+        accountUse: 'Guna akaun demo',
       },
       // "Laporkan salah" dialog on the result page.
       report: {
@@ -417,6 +419,8 @@ const resources = {
         banner: 'DEMO: sample data only.',
         passwordWarning: 'Do not use a real password.',
         samples: 'Try a sample barcode:',
+        accountTitle: 'Demo account to try',
+        accountUse: 'Use the demo account',
       },
       report: {
         title: 'Report wrong information',
