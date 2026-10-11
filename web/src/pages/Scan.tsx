@@ -1,5 +1,5 @@
-// Icons: close (X) and torch (flashlight).
-import { Flashlight, X } from 'lucide-react'
+// Icons: close (X), torch (flashlight) and the chevron on the "can't scan?" toggle.
+import { ChevronDown, ChevronUp, Flashlight, X } from 'lucide-react'
 // React state hook.
 import { lazy, Suspense, useState } from 'react'
 // Hook for translated text.
@@ -32,6 +32,8 @@ export default function Scan() {
   const [error, setError] = useState('')
   // Recent scans read once when the page opens.
   const [recent] = useState(getRecentScans)
+  // Whether the manual-entry sheet is open. Closed by default so the camera stays visible while scanning.
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   // Common path for both a camera hit and a typed code: remember it, then open the product page.
   const openProduct = (barcode: string) => {
@@ -106,87 +108,106 @@ export default function Scan() {
         </div>
       </div>
 
-      {/* Bottom sheet: white, rounded top corners, holds manual entry and recent scans. */}
-      <section className="relative flex flex-col gap-4 rounded-t-[24px] bg-surface px-4 pt-5 pb-8 text-ink">
-        {/* Decorative drag handle. */}
-        <div className="h-1 w-10 self-center rounded-pill bg-line" />
-        {/* Manual barcode entry as a real form so Enter submits. */}
-        <form
-          // Stop the page reload and validate the code.
-          onSubmit={(e) => {
-            // Don't let the browser submit the form itself.
-            e.preventDefault()
-            // Read the typed code and remove spaces.
-            const code = String(new FormData(e.currentTarget).get('kod') ?? '').replace(/\s/g, '')
-            // Reject anything that isn't 8-14 digits and explain why.
-            if (!BARCODE_PATTERN.test(code)) {
-              // Show the error message below the input.
-              setError(t('scan.invalid'))
-              // Stop here.
-              return
-            }
-            // Valid: clear any old error and open the product.
-            setError('')
-            openProduct(code)
-          }}
-          className="flex flex-col gap-2"
-          // Skip the browser's own validation bubble; we show our own message.
-          noValidate
+      {/* Bottom sheet: white, rounded top corners. Collapsed it is just the toggle; open it holds manual entry and recent scans.
+          When open it is capped at 70% of the screen height and scrolls inside itself, so the camera is never fully covered. */}
+      <section className="relative flex max-h-[70dvh] flex-col gap-4 overflow-y-auto rounded-t-[24px] bg-surface px-4 pt-3 pb-6 text-ink">
+        {/* Toggle button: acts as the drag handle area; opens and closes the sheet. */}
+        <button
+          type="button"
+          // Flip between open and closed.
+          onClick={() => setSheetOpen((open) => !open)}
+          // Tells screen readers whether the sheet is open, and which element it controls.
+          aria-expanded={sheetOpen}
+          aria-controls="manual-sheet"
+          className="flex h-11 items-center justify-center gap-2 rounded-pill text-body font-bold text-navy"
         >
-          {/* Label tied to the input by htmlFor/id. */}
-          <label htmlFor="kod" className="text-body font-bold">
-            {t('scan.manualLabel')}
-          </label>
-          {/* Input and button side by side. */}
-          <div className="flex gap-2">
-            {/* Numeric keyboard on phones; ties to the error message for screen readers when invalid. */}
-            <input
-              id="kod"
-              name="kod"
-              inputMode="numeric"
-              placeholder={t('scan.manualPlaceholder')}
-              aria-invalid={error !== ''}
-              aria-describedby={error ? 'kod-error' : undefined}
-              className="h-12 min-w-0 flex-1 rounded-sm border border-line px-3.5 text-[16px] tracking-[0.04em] text-ink"
-            />
-            {/* Submit button: navy pill. */}
-            <button type="submit" className="h-12 rounded-pill bg-navy px-5 text-body font-bold text-white">
-              {t('scan.check')}
-            </button>
+          {/* "Tak boleh imbas?" */}
+          {t('scan.manualToggle')}
+          {/* Chevron points down when the sheet can be closed, up when it can be opened. */}
+          {sheetOpen ? <ChevronDown size={20} strokeWidth={2} aria-hidden="true" /> : <ChevronUp size={20} strokeWidth={2} aria-hidden="true" />}
+        </button>
+        {/* Everything below only exists while the sheet is open. */}
+        {sheetOpen && (
+          <div id="manual-sheet" className="flex flex-col gap-4">
+            {/* Manual barcode entry as a real form so Enter submits. */}
+            <form
+              // Stop the page reload and validate the code.
+              onSubmit={(e) => {
+                // Don't let the browser submit the form itself.
+                e.preventDefault()
+                // Read the typed code and remove spaces.
+                const code = String(new FormData(e.currentTarget).get('kod') ?? '').replace(/\s/g, '')
+                // Reject anything that isn't 8-14 digits and explain why.
+                if (!BARCODE_PATTERN.test(code)) {
+                  // Show the error message below the input.
+                  setError(t('scan.invalid'))
+                  // Stop here.
+                  return
+                }
+                // Valid: clear any old error and open the product.
+                setError('')
+                openProduct(code)
+              }}
+              className="flex flex-col gap-2"
+              // Skip the browser's own validation bubble; we show our own message.
+              noValidate
+            >
+              {/* Label tied to the input by htmlFor/id. */}
+              <label htmlFor="kod" className="text-body font-bold">
+                {t('scan.manualLabel')}
+              </label>
+              {/* Input and button side by side. */}
+              <div className="flex gap-2">
+                {/* Numeric keyboard on phones; ties to the error message for screen readers when invalid. */}
+                <input
+                  id="kod"
+                  name="kod"
+                  inputMode="numeric"
+                  placeholder={t('scan.manualPlaceholder')}
+                  aria-invalid={error !== ''}
+                  aria-describedby={error ? 'kod-error' : undefined}
+                  className="h-12 min-w-0 flex-1 rounded-sm border border-line px-3.5 text-[16px] tracking-[0.04em] text-ink"
+                />
+                {/* Submit button: navy pill. */}
+                <button type="submit" className="h-12 rounded-pill bg-navy px-5 text-body font-bold text-white">
+                  {t('scan.check')}
+                </button>
+              </div>
+              {/* Validation message, only when there is one. */}
+              {error && (
+                <p id="kod-error" role="alert" className="text-caption text-unknown">
+                  {error}
+                </p>
+              )}
+            </form>
+
+            {/* Showcase only: pick a dummy product to "scan". */}
+            {DemoSamples && (
+              <Suspense fallback={null}>
+                <DemoSamples onPick={openProduct} />
+              </Suspense>
+            )}
+
+            {/* Recent scans. */}
+            <div className="flex flex-col gap-2">
+              {/* Section label. */}
+              <div className="text-label text-muted">{t('scan.recent')}</div>
+              {/* Empty state. */}
+              {recent.length === 0 && <p className="text-caption font-normal text-muted">{t('scan.noRecent')}</p>}
+              {/* One row per remembered scan. */}
+              {recent.map((s) => (
+                <Link key={s.barcode} to={`/p/${s.barcode}`} className="flex items-center gap-3 rounded-md border border-line px-3 py-2.5 text-ink">
+                  {/* 40px placeholder box (no image stored for scans). */}
+                  <span aria-hidden="true" className="size-10 shrink-0 rounded-sm bg-placeholder" />
+                  {/* Name if known, otherwise the barcode itself. */}
+                  <span className="min-w-0 flex-1 truncate text-[14px] font-semibold">{s.name ?? s.barcode}</span>
+                  {/* Badge only when we know the status. */}
+                  {s.origin_status && <StatusBadge status={s.origin_status} short />}
+                </Link>
+              ))}
+            </div>
           </div>
-          {/* Validation message, only when there is one. */}
-          {error && (
-            <p id="kod-error" role="alert" className="text-caption text-unknown">
-              {error}
-            </p>
-          )}
-        </form>
-
-        {/* Showcase only: pick a dummy product to "scan". */}
-        {DemoSamples && (
-          <Suspense fallback={null}>
-            <DemoSamples onPick={openProduct} />
-          </Suspense>
         )}
-
-        {/* Recent scans. */}
-        <div className="flex flex-col gap-2">
-          {/* Section label. */}
-          <div className="text-label text-muted">{t('scan.recent')}</div>
-          {/* Empty state. */}
-          {recent.length === 0 && <p className="text-caption font-normal text-muted">{t('scan.noRecent')}</p>}
-          {/* One row per remembered scan. */}
-          {recent.map((s) => (
-            <Link key={s.barcode} to={`/p/${s.barcode}`} className="flex items-center gap-3 rounded-md border border-line px-3 py-2.5 text-ink">
-              {/* 40px placeholder box (no image stored for scans). */}
-              <span aria-hidden="true" className="size-10 shrink-0 rounded-sm bg-placeholder" />
-              {/* Name if known, otherwise the barcode itself. */}
-              <span className="min-w-0 flex-1 truncate text-[14px] font-semibold">{s.name ?? s.barcode}</span>
-              {/* Badge only when we know the status. */}
-              {s.origin_status && <StatusBadge status={s.origin_status} short />}
-            </Link>
-          ))}
-        </div>
 
         {/* Notice at the point of collection: scans are logged anonymously, with a link to the full policy. */}
         <p className="text-caption font-normal text-muted">
